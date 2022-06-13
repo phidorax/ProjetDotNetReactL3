@@ -1,3 +1,7 @@
 # ProjetDotNetReactL3
+## par Axel Grard & Rémy Scherier
 
-https://trello.com/projetl3dotnetreact2022
+Axel Grard : @phidorax 
+Rémy Scherier : @DarekaSama
+
+Trello : https://trello.com/projetl3dotnetreact2022
