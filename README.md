@@ -3,6 +3,8 @@ Afin de soutenir les étudiants au cours de ce projet
 
 <a href="https://www.buymeacoffee.com/DrAtsiSama"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=DrAtsiSama&button_colour=BD5FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00"></a>
 
+https://docs.google.com/document/d/1qx1gX35ew5OVzjl2TToEg9q-1nbkgj0hMyxZ8FnFmFc/edit
+
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
 Une petite description du projet
