@@ -4,66 +4,85 @@ using L3Projet.Common;
 using L3Projet.DataAccess;
 using L3Projet.WebAPI.HealthCheck;
 
-namespace L3Projet.WebAPI {
-	public class Startup {
-		public Startup(IConfiguration configuration) {
-			Configuration = configuration;
-		}
+namespace L3Projet.WebAPI
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
-		public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-		private const string CORS_POLICY = "CORS_POLICY";
+        private const string CORS_POLICY = "CORS_POLICY";
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services) {
-			var appSettingsSection = Configuration.GetSection("AppSettings");
-			services.Configure<AppSettings>(appSettingsSection);
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
 
-			// Add services to the container.
-			services.AddTransient<IUsersService, UsersService>();
+            // Add services to the container.
+            services.AddTransient<IUsersService, UsersService>();
 
-			services.AddScoped<GameContext>();
+            services.AddScoped<GameContext>();
 
-			services.AddControllers();
-			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-			services.AddEndpointsApiExplorer();
-			services.AddSwaggerGen();
+            services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
 
-			services.AddCors(options => {
-				options.AddPolicy(name: CORS_POLICY,
-								  policy => {
-									  policy.WithOrigins("http://localhost:3000")
-											.AllowAnyMethod()
-											.AllowAnyHeader();
-								  });
-			});
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CORS_POLICY,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:3000")
+                                            .AllowAnyMethod()
+                                            .AllowAnyHeader();
+                                  });
+            });
 
-			services.AddHealthChecks()
-				.AddCheck<DbHealthCheck>("Database");
-		}
+            services.AddHealthChecks()
+                .AddCheck<DbHealthCheck>("Database");
 
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-			// Configure the HTTP request pipeline.
-			if (env.IsDevelopment()) {
-				app.UseSwagger();
-				app.UseSwaggerUI();
-			}
+            var builder = WebApplication.CreateBuilder();
+            var configuration = builder.Configuration;
 
-			app.UseHttpsRedirection();
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+                microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+            });
 
-			app.UseAuthorization();
+        }
 
-			app.UseRouting();
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            // Configure the HTTP request pipeline.
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
-			app.UseCors(CORS_POLICY);
+            app.UseHttpsRedirection();
 
-			app.UseEndpoints(endpoints => {
-				endpoints.MapControllerRoute(
-					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseAuthorization();
 
-				endpoints.MapHealthChecks("/health");
-			});
-		}
-	}
+            app.UseRouting();
+
+            app.UseCors(CORS_POLICY);
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHealthChecks("/health");
+            });
+        }
+    }
 }
