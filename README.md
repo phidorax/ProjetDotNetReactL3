@@ -1,13 +1,15 @@
-# ProjetDotNetReactL3
+# AxelRémy&Co
 Afin de soutenir les étudiants au cours de ce projet
 
 <a href="https://www.buymeacoffee.com/DrAtsiSama"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=DrAtsiSama&button_colour=BD5FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00"></a>
 
-https://docs.google.com/document/d/1qx1gX35ew5OVzjl2TToEg9q-1nbkgj0hMyxZ8FnFmFc/edit
 
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 
-Une petite description du projet
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-tasty-spaghetti-code.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
+
+Projet Dotnet/React L3 INFO Calais 2021-2022.
+Le but de ce projet est de créer un jeu de gestion d'un village, ville voir planète.
+Ce projet se réalisera en suivant les différentes étapes dans un premier temps contextualisé en issues sur Github mais également en étape dans le document ci-joint : [Projet L3 2022](https://docs.google.com/document/d/1qx1gX35ew5OVzjl2TToEg9q-1nbkgj0hMyxZ8FnFmFc/edit)
 
 ## Pour commencer
 
@@ -17,20 +19,17 @@ Entrez ici les instructions pour bien débuter avec votre projet...
 
 Ce qu'il est requis pour commencer avec votre projet...
 
-- Programme 1
-- Programme 2
+- Fork le projet et mettre une star
+- Visual Studio Code
 - etc...
 
 ### Installation
 
 Les étapes pour installer votre programme....
 
-Dites ce qu'il faut faire...
+_exemple_: Executez la commande ``git clone https://github.com/phidorax/ProjetDotNetReactL3`` 
+pour commencer ensuite [...]
 
-_exemple_: Executez la commande ``telnet mapscii.me`` pour commencer ensuite [...]
-
-
-Ensuite vous pouvez montrer ce que vous obtenez au final...
 
 ## Démarrage
 
@@ -44,27 +43,15 @@ _exemples :_
 * [Materialize.css](http://materializecss.com) - Framework CSS (front-end)
 * [Atom](https://atom.io/) - Editeur de textes
 
-## Contributing
-
-Si vous souhaitez contribuer, lisez le fichier [CONTRIBUTING.md](https://example.org) pour savoir comment le faire.
-
 ## Versions
-Listez les versions ici 
-_exemple :_
-**Dernière version stable :** 5.0
-**Dernière version :** 5.1
-Liste des versions : [Cliquer pour afficher](https://github.com/your/project-name/tags)
-_(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
+**Dernière version stable :** //
+**Dernière version :** 0.2
 
 ## Auteurs
-Listez le(s) auteur(s) du projet ici !
-par Axel Grard & Rémy Scherier
 * **Axel Grard** : [@phidorax](https://github.com/phidorax)
 * **Rémy Scherier** : [@DarekaSama](https://github.com/darekasama)
 
-Lisez la liste des [contributeurs](https://github.com/your/project/contributors) pour voir qui à aidé au projet !
-
-_(pour le lien mettez simplement l'URL de votre projet suivi de ``/contirubors``)_
+Lisez la liste des [contributeurs]([https://github.com/your/project/contributors](https://github.com/phidorax/ProjetDotNetReactL3/graphs/contributors)) pour voir qui à aidé au projet !
 
 ## License
 
