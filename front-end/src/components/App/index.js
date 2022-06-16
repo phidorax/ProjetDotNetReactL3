@@ -4,6 +4,7 @@ import Counter from '../Counter';
 import MyComponent from '../MyComponent';
 import TodoList from '../TodoList';
 import UserList from '../UserList';
+import MSAuth from '../MSAuth';
 
 import './index.css';
 
@@ -13,10 +14,11 @@ export default function App() {
 			Test<br />
 
 			<div>
-				<Link to="/">Home</Link>
-				<Link to="/counter">Counter</Link>
-				<Link to="/todo">Todo</Link>
-				<Link to="/users">Users</Link>
+				<Link to="/">Home</Link><br/>
+				<Link to="/counter">Counter</Link><br/>
+				<Link to="/todo">Todo</Link><br/>
+				<Link to="/users">Users</Link><br/>
+				<Link to="/msauth">Microsoft Authentification</Link><br/>
 			</div>
 
 			<Routes>
@@ -24,6 +26,7 @@ export default function App() {
 				<Route path="counter" element={<Counter />} />
 				<Route path="todo" element={<TodoList />} />
 				<Route path="users" element={<UserList />} />
+				<Route path="msauth" element={<MSAuth />} />
 			</Routes>
 		</div>
 	);
