@@ -1,11 +1,13 @@
 # AxelRémy&Co
+<p align="center">
+  <img width="460" height="300" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyytZo-uKe2q9NM3swnJz-NfoGirsmMDDUzA&usqp=CAU">
+</p>
+<br>
 Afin de soutenir les étudiants au cours de ce projet
-
+<br>
 <a href="https://www.buymeacoffee.com/DrAtsiSama"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=DrAtsiSama&button_colour=BD5FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00"></a>
-
-
-
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-tasty-spaghetti-code.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
+<br>
+[![forthebadge](https://forthebadge.com/images/badges/contains-tasty-spaghetti-code.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 
 Projet Dotnet/React L3 INFO Calais 2021-2022.
 Le but de ce projet est de créer un jeu de gestion d'un village, ville voir planète.
