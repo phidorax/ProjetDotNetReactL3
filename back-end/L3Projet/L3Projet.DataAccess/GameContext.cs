@@ -8,8 +8,14 @@ namespace L3Projet.DataAccess
     public class GameContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Mer> Mers { get; set; }
+        public DbSet<Mer> Mer { get; set; }
         public DbSet<Monde> Mondes { get; set; }
+        public DbSet<Classement> Classement { get; set; }
+        public DbSet<Batiment> Batiments { get; set; }
+        public DbSet<Ile> Iles { get; set; }
+        public DbSet<Ressources> Ressources { get; set; }
+        public DbSet<Village> Villages { get; set; }
+
 
         private readonly string SqlConnectionString;
 

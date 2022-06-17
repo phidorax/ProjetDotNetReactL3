@@ -18,14 +18,6 @@ namespace L3Projet.Common.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date_Creation_Monde { get; set; }
         public Boolean Fin_Monde { get; set; }
-        [Display(Name = "Full Name")]
-        public string FullName
-        {
-            get
-            {
-                return Nom_Monde + ", #" + ID_Monde;
-            }
-        }
-        public ICollection<Mer> Liste_Mers { get; set; }
+        //public ICollection<Mer> Liste_Mers { get; set; }
     }
 }

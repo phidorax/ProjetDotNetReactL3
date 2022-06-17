@@ -6,6 +6,8 @@ namespace L3Projet.Common.Models
     {
         [Key]
         public Guid ID_Mer { get; set; }
+        public string Nom_Mer { get; set; }
         public float Nombre_d_ile { get; set; }
+        public int Score_Mer { get; set; }
     }
 }
