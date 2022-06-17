@@ -10,7 +10,7 @@ namespace L3Projet.Common.Models
         [Column(Order=1, TypeName="serial")]
         public Guid ID_Mer { get; set; }
         public string Nom_Mer { get; set; }
-        public float Nombre_d_ile { get; set; }
+        public float Limite_ile { get; set; }
         public int Score_Mer { get; set; }
         public ICollection<Ile> ID_Ile { get; set; }
 

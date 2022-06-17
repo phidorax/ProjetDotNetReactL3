@@ -10,13 +10,9 @@ namespace L3Projet.Common.Models
         [Column(Order=1, TypeName="serial")]
         public Guid ID_Village { get; set; }
         public String Nom_Village { get; set; }
-        public bool Joueur_Village { get; set; }
         public int Score_Village { get; set; }
-        public int Cout_Ressource1_Village { get; set; }
-        public int Cout_Ressource2_Village { get; set; }
-        public int Cout_Ressource3_Village { get; set; }
+        public ICollection<CoutRessources> List_Cout_Ressources { get; set; }
         public ICollection<Batiment> ID_Batiment { get; set; }
-        public ICollection<Utilisateur> ID_Utilisateur { get; set; }
 
     }
 }

@@ -9,8 +9,10 @@ namespace L3Projet.Common.Models {
 		public Guid ID_Utilisateur { get; set; }
 		public string Pseudo { get; set; }
 		public string Email { get; set; }
-		public ICollection<UtilisateurLocal> ID_Utilisateur_Local { get; set; }
-		public ICollection<UtilisateurMicrosoft> ID_Utilisateur_Microsoft { get; set; }
+		public UtilisateurLocal ID_Utilisateur_Local { get; set; }
+		public UtilisateurMicrosoft ID_Utilisateur_Microsoft { get; set; }
 		public ICollection<Monde> ID_Monde { get; set; }
+		
+		public ICollection<Village> ID_Liste_Villages { get; set; }
 	}
 }
