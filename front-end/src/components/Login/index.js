@@ -3,11 +3,15 @@ import React, {useState} from "react";
 import {Button} from "react-bootstrap";
 import "./styles.css";
 import {SignInButton} from "../MSAuth/SignInButton";
+import login from "../../queries/login";
 
-function Auth() {
+function Login() {
     // React States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [uname, setUname] = useState('');
+    const [pass, setPass] = useState('');
+
 
     // User Login info
     const database = [
@@ -22,8 +26,8 @@ function Auth() {
     ];
 
     const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
+        uname: "Pseudo ou adresse mail incorrect",
+        pass: "Mot de passe"
     };
 
     const handleSubmit = (event) => {
@@ -55,12 +59,18 @@ function Auth() {
             <div className="error">{errorMessages.message}</div>
         );
 
+    const loginUser = () => {
+        login({
+            uname,
+            pass
+        });
+    }
     // JSX code for login form
     const renderForm = (
         <div className="form">
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
-                    <label>Pseudo ou adresse-mail </label>
+                    <label>Pseudo ou adresse mail </label>
                     <input type="text" name="uname" required/>
                     {renderErrorMessage("uname")}
                 </div>
@@ -70,7 +80,7 @@ function Auth() {
                     {renderErrorMessage("pass")}
                 </div>
                 <div className="button-container">
-                    <Button variant="primary" type="submit">Se connecter</Button>
+                    <Button variant="primary" type="submit" onClick={loginUser}>Se connecter</Button>
                 </div>
             </form>
         </div>
@@ -80,12 +90,21 @@ function Auth() {
         <div className="app">
             <div className="login-form">
                 <div className="title">S'identifier</div>
-                {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+                {renderForm}
                 <hr/>
-                <SignInButton/>
+                <div className="button-container">
+                    <SignInButton text={'Se connecter avec Microsoft'}/>
+                </div>
+                <hr/>
+                <p>
+                    Vous n'avez pas encore de compte ?
+                    <br/>
+                    <a className="button-container" href="/signup">S'inscrire maintenant</a>
+                </p>
+
             </div>
         </div>
     );
 }
 
-export default Auth;
+export default Login;

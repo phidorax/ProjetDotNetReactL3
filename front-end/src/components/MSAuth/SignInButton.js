@@ -13,10 +13,10 @@ function handleLogin(instance) {
 /**
  * Renders a button which, when selected, will redirect the page to the login prompt
  */
-export const SignInButton = () => {
+export const SignInButton = ({ text }) => {
     const { instance } = useMsal();
 
     return (
-        <Button variant="dark" startIcon={<MicrosoftIcon/>} className="ml-auto" onClick={() => handleLogin(instance)}>Se connecter avec Microsoft</Button>
+        <Button variant="dark" className="ml-auto" onClick={() => handleLogin(instance)}><MicrosoftIcon/> {text}</Button>
     );
 }

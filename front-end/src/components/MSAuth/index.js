@@ -23,20 +23,3 @@ export default function MSAuth() {
         </div>
     );
 }
-/*
-
-    const isAuthenticated = useIsAuthenticated();
-
-    return (
-        <>
-            <Navbar bg="primary" variant="dark">
-                <a className="navbar-brand" href="/">MSAL React Tutorial</a>
-                { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
-            </Navbar>
-            <h5><center>Welcome to the Microsoft Authentication Library For React Tutorial</center></h5>
-            <br />
-            <br />
-            {props.children}
-        </>
-    );
-};*/
