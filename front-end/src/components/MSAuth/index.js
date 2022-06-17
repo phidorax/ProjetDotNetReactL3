@@ -1,28 +1,42 @@
 import React from "react";
-import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "./authConfig";
-import Button from "react-bootstrap/Button";
-
-function handleLogin(instance) {
-    instance.loginRedirect(loginRequest).catch(e => {
-        console.error(e);
-    });
-}
+import {AuthenticatedTemplate, UnauthenticatedTemplate} from "@azure/msal-react";
+import { SignInButton } from "./SignInButton";
+import { SignOutButton } from "./SignOutButton";
+import ProfileContent from "./ProfileContent";
 
 /**
- * Renders a button which, when selected, will open a popup for login
+ * Renders the navbar component with a sign-in button if a user is not authenticated
  */
-export const SignInButton = () => {
-    const { instance } = useMsal();
+export default function MSAuth() {
 
     return (
-        <Button variant="secondary" className="ml-auto" onClick={() => handleLogin(instance)}>Se connecter avec Microsoft</Button>
+        <div>
+            <AuthenticatedTemplate>
+                <p>You are signed in!</p>
+                <ProfileContent/>
+                <SignOutButton/>
+            </AuthenticatedTemplate>
+            <UnauthenticatedTemplate>
+                <p>You are not signed in! Please sign in.</p>
+                <SignInButton/>
+            </UnauthenticatedTemplate>
+        </div>
     );
 }
+/*
 
-export default function MSAuth() {
-    return SignInButton();
-    /*return (
-        <a href="https://www.microsoft.com/"><img src="https://docs.microsoft.com/fr-fr/azure/active-directory/develop/media/howto-add-branding-in-azure-ad-apps/ms-symbollockup_signin_dark.svg" height="80"></img></a>
-    );*/
-}
+    const isAuthenticated = useIsAuthenticated();
+
+    return (
+        <>
+            <Navbar bg="primary" variant="dark">
+                <a className="navbar-brand" href="/">MSAL React Tutorial</a>
+                { isAuthenticated ? <SignOutButton /> : <SignInButton /> }
+            </Navbar>
+            <h5><center>Welcome to the Microsoft Authentication Library For React Tutorial</center></h5>
+            <br />
+            <br />
+            {props.children}
+        </>
+    );
+};*/

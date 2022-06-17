@@ -7,7 +7,7 @@ export default function useUserList() {
 
 	useEffect(() => {
 		async function getUsers() {
-			const res = await fetch('https://localhost:7064/Users/all');
+			const res = await fetch('https://localhost:7004/all');
 
 			if(res.status !== 200) {
 				setError(res.statusText);
