@@ -1,6 +1,7 @@
 ﻿using L3Projet.Business.Implementations;
 using L3Projet.Business.Interfaces;
 using L3Projet.Common;
+using L3Projet.Common.Models;
 using L3Projet.DataAccess;
 using L3Projet.WebAPI.HealthCheck;
 
@@ -21,6 +22,25 @@ namespace L3Projet.WebAPI {
 
 			// Add services to the container.
 			services.AddTransient<IUsersService, UsersService>();
+			services.AddTransient<IMersService, MersService>();
+			services.AddTransient<IIlesService, IlesService>();
+			services.AddTransient<IClassementsService, ClassementsService>();
+			services.AddTransient<IBatimentsService, BatimentsService>();
+			services.AddTransient<IBatimentParametrageService, BatimentParametrageService>();
+			services.AddTransient<ICoutRessourcesService, CoutRessoucesService>();
+			services.AddTransient<IMondesService, MondesService>();
+			services.AddTransient<IParametragesService, ParametragesService>();
+			services.AddTransient<IRessoucesService, RessourcesService>();
+			services.AddTransient<IUtilisateursService, UtilisateursService>();
+			services.AddTransient<IUtilisateursMicrosoftService, UtilisateursMicrosoftService>();
+			services.AddTransient<IUtilisateursLocalService, UtilisateursLocalService>();
+
+			
+
+
+
+
+
 
 			services.AddScoped<GameContext>();
 

@@ -7,25 +7,25 @@ namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class MerController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IMersService MersService;
 
-        public UserController(IUsersService usersService)
+        public MerController(IMersService MersService)
         {
-            this.usersService = usersService;
+            this.MersService = MersService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Mer>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var mers = MersService.GetAllMers();
 
-                if (users.Any())
+                if (mers.Any())
                 {
-                    return Ok(users);
+                    return Ok(mers);
                 }
 
                 return NoContent();

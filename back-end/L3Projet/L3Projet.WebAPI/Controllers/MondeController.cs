@@ -7,25 +7,25 @@ namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class MondeController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IMondesService mondesService;
 
-        public UserController(IUsersService usersService)
+        public MondeController(IMondesService mondesService)
         {
-            this.usersService = usersService;
+            this.mondesService = mondesService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Monde>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var monde = mondesService.GetAllMondes();
 
-                if (users.Any())
+                if (monde.Any())
                 {
-                    return Ok(users);
+                    return Ok(monde);
                 }
 
                 return NoContent();

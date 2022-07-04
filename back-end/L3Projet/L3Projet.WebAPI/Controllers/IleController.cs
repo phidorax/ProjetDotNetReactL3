@@ -7,25 +7,25 @@ namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class IleController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IIlesService IlesService;
 
-        public UserController(IUsersService usersService)
+        public IleController(IIlesService IlesService)
         {
-            this.usersService = usersService;
+            this.IlesService = IlesService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Ile>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var iles = IlesService.GetAllIles();
 
-                if (users.Any())
+                if (iles.Any())
                 {
-                    return Ok(users);
+                    return Ok(iles);
                 }
 
                 return NoContent();

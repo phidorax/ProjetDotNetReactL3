@@ -7,25 +7,25 @@ namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class BatimentController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IBatimentsService BatimentsService;
 
-        public UserController(IUsersService usersService)
+        public BatimentController(IBatimentsService BatimentsService)
         {
-            this.usersService = usersService;
+            this.BatimentsService = BatimentsService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Batiment>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var batiments = BatimentsService.getAllBatiments();
 
-                if (users.Any())
+                if (batiments.Any())
                 {
-                    return Ok(users);
+                    return Ok(batiments);
                 }
 
                 return NoContent();

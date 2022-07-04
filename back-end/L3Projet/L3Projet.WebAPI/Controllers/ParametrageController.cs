@@ -7,25 +7,25 @@ namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class ParametrageController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IParametragesService parametragesService;
 
-        public UserController(IUsersService usersService)
+        public ParametrageController(IParametragesService parametragesService)
         {
-            this.usersService = usersService;
+            this.parametragesService = parametragesService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Parametrage>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var param = parametragesService.GetAllParametrages();
 
-                if (users.Any())
+                if (param.Any())
                 {
-                    return Ok(users);
+                    return Ok(param);
                 }
 
                 return NoContent();

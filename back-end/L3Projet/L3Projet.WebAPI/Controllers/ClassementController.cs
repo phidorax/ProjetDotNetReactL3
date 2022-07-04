@@ -2,30 +2,31 @@
 using L3Projet.Business.Interfaces;
 using L3Projet.Common.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class ClassementController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IClassementsService classementsService;
 
-        public UserController(IUsersService usersService)
+        public ClassementController(IClassementsService classementsService)
         {
-            this.usersService = usersService;
+            this.classementsService = classementsService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Classement>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var classement = classementsService.GetAllClassements();
 
-                if (users.Any())
+                if (classement.Any())
                 {
-                    return Ok(users);
+                    return Ok(classement);
                 }
 
                 return NoContent();

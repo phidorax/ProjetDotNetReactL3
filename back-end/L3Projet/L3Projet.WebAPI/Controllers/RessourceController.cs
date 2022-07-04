@@ -7,25 +7,25 @@ namespace L3Projet.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class RessourceController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IRessoucesService ressoucesService;
 
-        public UserController(IUsersService usersService)
+        public RessourceController(IRessoucesService ressoucesService)
         {
-            this.usersService = usersService;
+            this.ressoucesService = ressoucesService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<Ressources>> GetAll()
         {
             try
             {
-                var users = usersService.GetAllUsers();
+                var ressources = ressoucesService.GetAllRessources();
 
-                if (users.Any())
+                if (ressources.Any())
                 {
-                    return Ok(users);
+                    return Ok(ressources);
                 }
 
                 return NoContent();
