@@ -1,6 +1,6 @@
 export default async function login(credentials) {
     await fetch(
-        'https://localhost:7004/login',
+        'https://localhost:7004/login/basic',
         {
             headers: {
                     'Accept': 'application/json',
