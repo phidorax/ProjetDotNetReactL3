@@ -5,9 +5,9 @@ import Button from "react-bootstrap/Button";
 import MicrosoftIcon from "./MicrosoftIcon";
 
 function handleLogin(instance) {
-    instance.loginRedirect(loginRequest).catch(e => {
+    instance.loginPopup(loginRequest).catch(e => {
         console.error(e);
-    });
+    }).finally(()=>{console.log("Finally")});
 }
 
 /**
