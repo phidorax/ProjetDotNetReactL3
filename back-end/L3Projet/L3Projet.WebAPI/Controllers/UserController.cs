@@ -68,9 +68,9 @@ namespace L3Projet.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("/login/ms")]
-        public ActionResult<IEnumerable<Boolean>> MSLogin([FromBody] string? userLogin)
+        public ActionResult MSLogin()
         {
-            return Ok(userLogin);
+            return Ok();
         }
 
         [AllowAnonymous]
