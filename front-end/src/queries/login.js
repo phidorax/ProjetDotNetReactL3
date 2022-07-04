@@ -1,5 +1,5 @@
 export default async function login(credentials) {
-    await fetch(
+    const res = await fetch(
         'https://localhost:7004/login/basic',
         {
             headers: {
@@ -10,4 +10,5 @@ export default async function login(credentials) {
             body: JSON.stringify(credentials)
         }
     )
+    return res;
 }

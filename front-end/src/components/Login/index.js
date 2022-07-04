@@ -4,6 +4,7 @@ import {Button} from "react-bootstrap";
 import "./styles.css";
 import {SignInButton} from "../MSAuth/SignInButton";
 import login from "../../queries/login";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
     // React States
@@ -13,26 +14,12 @@ function Login() {
 
     const errors = {
         uname: "Pseudo ou adresse mail incorrect",
-        pass: "Mot de passe"
+        pass: "Mot de passe incorrect"
     };
 
     const handleSubmit = (event) => {
         //Prevent page reload
         event.preventDefault();
-
-
-        /*// Compare user info
-        if (userData) {
-            if (userData.password !== pass.value) {
-                // Invalid password
-                setErrorMessages({name: "pass", message: errors.pass});
-            } else {
-                setIsSubmitted(true);
-            }
-        } else {
-            // Username not found
-            setErrorMessages({name: "uname", message: errors.uname});
-        }*/
     };
 
     // Generate JSX code for error message
@@ -41,10 +28,33 @@ function Login() {
             <div className="error">{errorMessages.message}</div>
         );
 
+    let navigate = useNavigate();
+    const redirectGame = () => {
+        navigate('../game', {replace: false});
+    }
+
     const loginUser = () => {
         login({
             uname,
             pass
+        }).then((res) => {
+            switch (res.status) {
+                case 200:
+                    console.log("Succes")
+                    redirectGame();
+                    break;
+                case 401:
+                    // Invalid password
+                    setErrorMessages({name: "pass", message: errors.pass});
+                    break;
+                case 404:
+                    // Username not found
+                    setErrorMessages({name: "uname", message: errors.uname});
+                    break;
+                default:
+                    console.log("Another code", res.status)
+                    break;
+            }
         });
     }
     // JSX code for login form
@@ -53,7 +63,7 @@ function Login() {
             <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <label>Pseudo ou adresse mail </label>
-                    <input type="text" name="uname"  onChange={(e) => setUname(e.target.value)} required/>
+                    <input type="text" name="uname" onChange={(e) => setUname(e.target.value)} required/>
                     {renderErrorMessage("uname")}
                 </div>
                 <div className="input-container">

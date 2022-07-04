@@ -3,6 +3,9 @@ using L3Projet.Business.Interfaces;
 using L3Projet.Common;
 using L3Projet.DataAccess;
 using L3Projet.WebAPI.HealthCheck;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace L3Projet.WebAPI
 {
@@ -33,6 +36,29 @@ namespace L3Projet.WebAPI
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            var builder = WebApplication.CreateBuilder();
+            var configuration = builder.Configuration;
+
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+                microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CORS_POLICY,
@@ -44,18 +70,10 @@ namespace L3Projet.WebAPI
                                   });
             });
 
+            services.AddAuthorization();
+
             services.AddHealthChecks()
                 .AddCheck<DbHealthCheck>("Database");
-
-            var builder = WebApplication.CreateBuilder();
-            var configuration = builder.Configuration;
-
-            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-            {
-                microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
-                microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
-            });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,9 +87,11 @@ namespace L3Projet.WebAPI
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseCors(CORS_POLICY);
 
@@ -79,7 +99,8 @@ namespace L3Projet.WebAPI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}")
+                .RequireAuthorization();
 
                 endpoints.MapHealthChecks("/health");
             });

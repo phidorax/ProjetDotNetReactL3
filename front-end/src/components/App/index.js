@@ -7,6 +7,7 @@ import MSAuth from '../MSAuth';
 
 import './index.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Game from "../Game";
 
 export default function App() {
 	return (
@@ -21,6 +22,7 @@ export default function App() {
 			<Routes>
 				<Route path="/" element={<Home text={'Bienvenue sur le jeu'} />} />
 				<Route path="login" element={<Login />} />
+				<Route path="game" element={<Game />} />
 				<Route path="signup" element={<SignUp />} />
 				<Route path="msauth" element={<MSAuth />} />
 			</Routes>
