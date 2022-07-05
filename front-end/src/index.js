@@ -12,13 +12,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const msalInstance = new PublicClientApplication(msalConfig);
 
 root.render(
-    <React.StrictMode>
-        <MsalProvider instance={msalInstance}>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </MsalProvider>
-    </React.StrictMode>
+    <MsalProvider instance={msalInstance}>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
+    </MsalProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

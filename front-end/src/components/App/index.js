@@ -8,6 +8,7 @@ import MSAuth from '../MSAuth';
 import './index.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Game from "../Game";
+import {CheckMSAuth} from "../MSAuth/CheckMSAuth";
 
 export default function App() {
 	return (
@@ -17,6 +18,7 @@ export default function App() {
 				<Link className="margin" to="/login">Login</Link>
 				<Link className="margin" to="/signup">Signup</Link>
 				<Link className="margin" to="/msauth">Microsoft Authentification</Link>
+				<Link className="margin" to="/check/ms">Check Microsoft Authentification</Link>
 			</div>
 
 			<Routes>
@@ -25,6 +27,7 @@ export default function App() {
 				<Route path="game" element={<Game />} />
 				<Route path="signup" element={<SignUp />} />
 				<Route path="msauth" element={<MSAuth />} />
+				<Route path="/check/ms" element={<CheckMSAuth />} />
 			</Routes>
 		</div>
 	);

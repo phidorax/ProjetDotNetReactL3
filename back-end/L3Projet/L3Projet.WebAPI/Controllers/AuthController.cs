@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace L3Projet.WebAPI.Controllers
@@ -38,7 +39,7 @@ namespace L3Projet.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("/login/basic")]
-        public ActionResult<IEnumerable<Boolean>> BasicLogin([FromBody] BasicLogin? userLogin)
+        public ActionResult BasicLogin([FromBody] BasicLogin? userLogin)
         {
             if (userLogin != null)
             {
@@ -47,7 +48,7 @@ namespace L3Projet.WebAPI.Controllers
                 {
                     if (BCrypt.Net.BCrypt.Verify(userLogin.pass, userBdd.pass))
                     {
-                        var tokenString = GenerateJSONWebToken(userLogin);
+                        var tokenString = GenerateJSONWebToken(userLogin.uname);
                         return Ok(new { token = tokenString });
                     }
                     else
@@ -68,9 +69,17 @@ namespace L3Projet.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("/login/ms")]
-        public ActionResult MSLogin()
+        public ActionResult MSLogin([FromBody] MSLogin? msUser)
         {
-            return Ok();
+            if (msUser != null)
+            {
+                var tokenString = GenerateJSONWebToken(msUser.first_name);
+                return Ok(new { token = tokenString });
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [AllowAnonymous]
@@ -97,21 +106,30 @@ namespace L3Projet.WebAPI.Controllers
         }
 
         [HttpGet("/test")]
-        public ActionResult<DateTime> Test()
+        [Authorize]
+        public ActionResult Test()
         {
-            return Ok(DateTime.Now);
+            var currentUser = HttpContext.User.Identity.Name;
+            return Ok(currentUser + " " + DateTime.Now);
         }
 
-        private string GenerateJSONWebToken(BasicLogin userInfo)
+        private string GenerateJSONWebToken(string pseudo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Name, pseudo)/*,
+                new Claim(JwtRegisteredClaimNames.Email, userInfo.EmailAddress),
+                new Claim("DateOfJoing", userInfo.DateOfJoing.ToString("yyyy-MM-dd")),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())*/
+            };
+
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              null,
-              expires: DateTime.Now.AddMinutes(30),
-              signingCredentials: credentials);
+                _config["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(120),
+                signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

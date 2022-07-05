@@ -40,7 +40,6 @@ function Login() {
         }).then((res) => {
             switch (res.status) {
                 case 200:
-                    console.log("Succes")
                     redirectGame();
                     break;
                 case 401:
@@ -52,7 +51,6 @@ function Login() {
                     setErrorMessages({name: "uname", message: errors.uname});
                     break;
                 default:
-                    console.log("Another code", res.status)
                     break;
             }
         });

@@ -3,11 +3,14 @@ import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
 import Button from "react-bootstrap/Button";
 import MicrosoftIcon from "./MicrosoftIcon";
+import {useNavigate} from "react-router-dom";
 
-function handleLogin(instance) {
+function handleLogin(instance, navigate) {
     instance.loginPopup(loginRequest).catch(e => {
         console.error(e);
-    }).finally(()=>{console.log("Finally")});
+    }).finally(()=>{
+        navigate('../check/ms', {replace: false});
+    });
 }
 
 /**
@@ -15,8 +18,9 @@ function handleLogin(instance) {
  */
 export const SignInButton = ({ text }) => {
     const { instance } = useMsal();
+    let navigate = useNavigate();
 
     return (
-        <Button variant="dark" className="ml-auto" onClick={() => handleLogin(instance)}><MicrosoftIcon/> {text}</Button>
+        <Button variant="dark" className="ml-auto" onClick={() => handleLogin(instance, navigate)}><MicrosoftIcon/> {text}</Button>
     );
 }

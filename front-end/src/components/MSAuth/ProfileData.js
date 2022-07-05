@@ -4,7 +4,6 @@ import React from "react";
  * Renders information about the user obtained from Microsoft Graph
  */
 export const ProfileData = (props) => {
-    console.table(props.graphData)
     return (
         <div id="profile-div">
             <p><strong>First Name: </strong> {props.graphData.givenName}</p>
