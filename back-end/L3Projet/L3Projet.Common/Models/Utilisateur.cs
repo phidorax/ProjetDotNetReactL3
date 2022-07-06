@@ -5,8 +5,7 @@ namespace L3Projet.Common.Models {
 	public class Utilisateur {
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		[Column(Order=1, TypeName="serial")]
-		public Guid ID_Utilisateur { get; set; }
+		public int ID_Utilisateur { get; set; }
 		public string Pseudo { get; set; }
 		public string Email { get; set; }
 		public UtilisateurLocal ID_Utilisateur_Local { get; set; }

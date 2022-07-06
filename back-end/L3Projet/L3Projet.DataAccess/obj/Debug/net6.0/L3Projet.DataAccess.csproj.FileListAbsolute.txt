@@ -1,0 +1,15 @@
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/bin/Debug/net6.0/L3Projet.DataAccess.deps.json
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/bin/Debug/net6.0/L3Projet.DataAccess.dll
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/bin/Debug/net6.0/L3Projet.DataAccess.pdb
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/bin/Debug/net6.0/L3Projet.Common.dll
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/bin/Debug/net6.0/L3Projet.Common.pdb
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.csproj.AssemblyReference.cache
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.AssemblyInfoInputs.cache
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.AssemblyInfo.cs
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.csproj.CoreCompileInputs.cache
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.csproj.CopyComplete
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.dll
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/refint/L3Projet.DataAccess.dll
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/L3Projet.DataAccess.pdb
+/home/remy/Bureau/projet/ProjetDotNetReactL3/back-end/L3Projet/L3Projet.DataAccess/obj/Debug/net6.0/ref/L3Projet.DataAccess.dll

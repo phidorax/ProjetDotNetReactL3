@@ -36,6 +36,27 @@ namespace L3Projet.WebAPI.Controllers
             }
 
         }
+        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Batiment>> GetById(int id)
+        {
+            try
+            {
+                var batiments = await BatimentsService.GetById(id);
+
+                if (batiments == default)
+                {
+                    return NoContent();
+                }
+
+                return Ok(batiments);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
     }
 }
 

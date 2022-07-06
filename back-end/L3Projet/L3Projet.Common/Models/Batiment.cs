@@ -7,8 +7,7 @@ namespace L3Projet.Common.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order=1, TypeName="serial")]
-        public Guid ID_Batiment { get; set; }
+        public int ID_Batiment { get; set; }
         public String Nom_Batiment { get; set; }
         public int Niveau_Batiment { get; set; }
         public int Score_Total_Batiment { get; set; }

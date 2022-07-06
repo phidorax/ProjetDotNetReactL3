@@ -7,8 +7,7 @@ namespace L3Projet.Common.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order=1, TypeName="serial")]
-        public Guid ID_Parametrage { get; set; }
+        public int ID_Parametrage { get; set; }
         public String Nom_Parametrage { get; set; }
         public DateTime Lancement_Evolution_Parametrage { get; set; }
         public float Temps_Evolution_Parametrage { get; set; }

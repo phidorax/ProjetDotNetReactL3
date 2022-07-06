@@ -6,13 +6,7 @@ namespace L3Projet.Common.Models
     {
         [Key]
         public float Classement_global
-        {
-            get
-            {
-                return 1;
-            }
-            set{}
-        }
+        { get; set; }
 
         public float Classement_mer { get; set; }
         public float Classement_ile { get; set; }

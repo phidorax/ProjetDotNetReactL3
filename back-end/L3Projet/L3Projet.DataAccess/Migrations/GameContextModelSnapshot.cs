@@ -24,10 +24,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Batiment", b =>
                 {
-                    b.Property<Guid>("ID_Batiment")
+                    b.Property<int>("ID_Batiment")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Batiment"));
 
                     b.Property<int>("Niveau_Batiment")
                         .HasColumnType("integer");
@@ -39,8 +40,8 @@ namespace L3Projet.DataAccess.Migrations
                     b.Property<int>("Score_Total_Batiment")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("VillageID_Village")
-                        .HasColumnType("serial");
+                    b.Property<int?>("VillageID_Village")
+                        .HasColumnType("integer");
 
                     b.HasKey("ID_Batiment");
 
@@ -51,13 +52,14 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.BatimentParametrage", b =>
                 {
-                    b.Property<Guid>("ID_Batiment_Parametrage")
+                    b.Property<int>("ID_Batiment_Parametrage")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("BatimentID_Batiment")
-                        .HasColumnType("serial");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Batiment_Parametrage"));
+
+                    b.Property<int?>("BatimentID_Batiment")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nom_Batiment_Parametrage")
                         .IsRequired()
@@ -97,17 +99,17 @@ namespace L3Projet.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Cout_Ressource"));
 
-                    b.Property<Guid?>("BatimentParametrageID_Batiment_Parametrage")
-                        .HasColumnType("serial");
+                    b.Property<int?>("BatimentParametrageID_Batiment_Parametrage")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Cout_Ressource")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("ID_Ressource")
-                        .HasColumnType("serial");
+                    b.Property<int>("ID_Ressource")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("VillageID_Village")
-                        .HasColumnType("serial");
+                    b.Property<int?>("VillageID_Village")
+                        .HasColumnType("integer");
 
                     b.HasKey("ID_Cout_Ressource");
 
@@ -122,16 +124,17 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Ile", b =>
                 {
-                    b.Property<Guid>("ID_Ile")
+                    b.Property<int>("ID_Ile")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Ile"));
 
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("MerID_Mer")
-                        .HasColumnType("serial");
+                    b.Property<int?>("MerID_Mer")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nom_Ile")
                         .IsRequired()
@@ -151,10 +154,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Mer", b =>
                 {
-                    b.Property<Guid>("ID_Mer")
+                    b.Property<int>("ID_Mer")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Mer"));
 
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
@@ -162,8 +166,8 @@ namespace L3Projet.DataAccess.Migrations
                     b.Property<float>("Limite_ile")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("MondeID_Monde")
-                        .HasColumnType("serial");
+                    b.Property<int?>("MondeID_Monde")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nom_Mer")
                         .IsRequired()
@@ -183,10 +187,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Monde", b =>
                 {
-                    b.Property<Guid>("ID_Monde")
+                    b.Property<int>("ID_Monde")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Monde"));
 
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
@@ -207,8 +212,8 @@ namespace L3Projet.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UtilisateurID_Utilisateur")
-                        .HasColumnType("serial");
+                    b.Property<int?>("UtilisateurID_Utilisateur")
+                        .HasColumnType("integer");
 
                     b.HasKey("ID_Monde");
 
@@ -221,16 +226,17 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Parametrage", b =>
                 {
-                    b.Property<Guid>("ID_Parametrage")
+                    b.Property<int>("ID_Parametrage")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Parametrage"));
 
                     b.Property<DateTime>("Lancement_Evolution_Parametrage")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("MondeID_Monde")
-                        .HasColumnType("serial");
+                    b.Property<int?>("MondeID_Monde")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nom_Parametrage")
                         .IsRequired()
@@ -251,10 +257,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Ressources", b =>
                 {
-                    b.Property<Guid>("ID_Ressource")
+                    b.Property<int>("ID_Ressource")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Ressource"));
 
                     b.Property<string>("Nom_Ressource")
                         .IsRequired()
@@ -270,9 +277,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -285,20 +294,21 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Utilisateur", b =>
                 {
-                    b.Property<Guid>("ID_Utilisateur")
+                    b.Property<int>("ID_Utilisateur")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Utilisateur"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ID_Utilisateur_LocalID_Local")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ID_Utilisateur_LocalID_Local")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("ID_Utilisateur_MicrosoftID_Microsoft")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ID_Utilisateur_MicrosoftID_Microsoft")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Pseudo")
                         .IsRequired()
@@ -315,9 +325,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.UtilisateurLocal", b =>
                 {
-                    b.Property<Guid>("ID_Local")
+                    b.Property<int>("ID_Local")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Local"));
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -330,9 +342,11 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.UtilisateurMicrosoft", b =>
                 {
-                    b.Property<Guid>("ID_Microsoft")
+                    b.Property<int>("ID_Microsoft")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Microsoft"));
 
                     b.Property<string>("Token")
                         .IsRequired()
@@ -345,13 +359,14 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Village", b =>
                 {
-                    b.Property<Guid>("ID_Village")
+                    b.Property<int>("ID_Village")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("IleID_Ile")
-                        .HasColumnType("serial");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Village"));
+
+                    b.Property<int?>("IleID_Ile")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nom_Village")
                         .IsRequired()
@@ -360,8 +375,8 @@ namespace L3Projet.DataAccess.Migrations
                     b.Property<int>("Score_Village")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("UtilisateurID_Utilisateur")
-                        .HasColumnType("serial");
+                    b.Property<int?>("UtilisateurID_Utilisateur")
+                        .HasColumnType("integer");
 
                     b.HasKey("ID_Village");
 

@@ -7,8 +7,7 @@ namespace L3Projet.Common.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order=1, TypeName="serial")]
-        public Guid ID_Monde { get; set; }
+        public int ID_Monde { get; set; }
         //[StringLength(50)]
         [StringLength(50, ErrorMessage = "Nom_Monde cannot be longer than 50 characters.")]
         [Column("NomMonde")]

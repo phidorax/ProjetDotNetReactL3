@@ -3,5 +3,6 @@
 namespace L3Projet.Business.Interfaces {
 	public interface IBatimentsService {
 		IEnumerable<Batiment> getAllBatiments();
+		Task<Batiment?> GetById(int id);
 	}
 }
