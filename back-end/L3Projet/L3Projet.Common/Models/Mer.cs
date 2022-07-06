@@ -5,6 +5,12 @@ namespace L3Projet.Common.Models
 {
     public class Mer
     {
+        public Mer(string nom_Mer)
+        {
+            Nom_Mer = nom_Mer;
+            Limite_ile = 6;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID_Mer { get; set; }

@@ -15,16 +15,16 @@ namespace L3Projet.WebAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUtilisateursService usersService;
-        private readonly IUtilisateursLocalService usersLocalService;
         private readonly IUtilisateursMicrosoftService usersMSService;
+        private readonly IMondesService worldsService;
         private IConfiguration _config;
 
-        public AuthController(IUtilisateursService usersService, IUtilisateursLocalService usersLocalService, IUtilisateursMicrosoftService usersMSService, IConfiguration config)
+        public AuthController(IUtilisateursService usersService, IUtilisateursMicrosoftService usersMSService, IMondesService worldsService, IConfiguration config)
         {
             this._config = config;
             this.usersService = usersService;
-            this.usersLocalService = usersLocalService;
             this.usersMSService = usersMSService;
+            this.worldsService = worldsService;
         }
 
         [AllowAnonymous]
@@ -34,18 +34,25 @@ namespace L3Projet.WebAPI.Controllers
             if (userLogin != null)
             {
                 var ListUsers = usersService.GetAllUtilisateurs();
-                Utilisateur? UserBDD = ListUsers.FirstOrDefault(user => (user.Pseudo == userLogin.uname) || (user.Email == userLogin.uname), null);
+                Utilisateur? UserBDD = ListUsers.FirstOrDefault(user => (user.Pseudo == userLogin.uname) || (user.Email == userLogin.uname));
                 if (UserBDD != null)
                 {
                     var UserLocalBdd = UserBDD.ID_Utilisateur_Local;
-                    if (BCrypt.Net.BCrypt.Verify(userLogin.pass, UserLocalBdd.Password))
+                    if (UserLocalBdd != null)
                     {
-                        var tokenString = GenerateJSONWebToken(UserBDD);
-                        return Ok(new { token = tokenString });
+                        if (BCrypt.Net.BCrypt.Verify(userLogin.pass, UserLocalBdd.Password))
+                        {
+                            var tokenString = GenerateJSONWebToken(UserBDD);
+                            return Ok(new { token = tokenString });
+                        }
+                        else
+                        {
+                            return Unauthorized();
+                        }
                     }
                     else
                     {
-                        return Unauthorized();
+                        return NotFound();
                     }
                 }
                 else
@@ -65,7 +72,7 @@ namespace L3Projet.WebAPI.Controllers
         {
             if (UserMSLogin != null)
             {
-                var userMS = usersMSService.GetAllUtilisateursMicrosoft().FirstOrDefault(user => user.Token == UserMSLogin.id);
+                var userMS = usersMSService.GetAllUtilisateursMicrosoft().FirstOrDefault(user => user.Token == UserMSLogin.ID);
                 if (userMS != null)
                 {
                     var UserLink = usersService.GetAllUtilisateurs().FirstOrDefault(user => user.ID_Utilisateur_Microsoft.ID_Microsoft == userMS.ID_Microsoft);
@@ -74,11 +81,11 @@ namespace L3Projet.WebAPI.Controllers
                 }
                 else
                 {
-                    var NewUserMS = new Utilisateur();
-                    NewUserMS.Pseudo = UserMSLogin.name;
-                    NewUserMS.Email = UserMSLogin.email;
-                    NewUserMS.ID_Utilisateur_Microsoft = new UtilisateurMicrosoft(UserMSLogin.id);
-                    if (GenerateNewUser(NewUserMS))
+                    var ListUsers = usersService.GetAllUtilisateurs();
+                    Utilisateur? NewUserMS = ListUsers.FirstOrDefault(user => user.Email == UserMSLogin.Email, new Utilisateur(UserMSLogin.displayName, UserMSLogin.lastName, UserMSLogin.firstName, UserMSLogin.Email));
+                    NewUserMS.ID_Utilisateur_Microsoft = new UtilisateurMicrosoft(UserMSLogin.ID);
+                    GenerateAssetPlayer(NewUserMS);
+                    if (usersService.AddUtilisateur(NewUserMS))
                     {
                         var tokenString = GenerateJSONWebToken(NewUserMS);
                         return Ok(new { token = tokenString });
@@ -97,19 +104,23 @@ namespace L3Projet.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("/signup")]
-        public ActionResult<Signup> Signup([FromBody] Signup? newUser)
+        public ActionResult<Signup> Signup([FromBody] Signup? UserSignup)
         {
-            if (newUser != null)
+            if (UserSignup != null)
             {
-                newUser.password = BCrypt.Net.BCrypt.HashPassword(newUser.password);
-                var countUsers = usersService.GetAllUtilisateurs().Count(user => (user.Pseudo == newUser.pseudo) || (user.Email == newUser.email));
+                UserSignup.Password = BCrypt.Net.BCrypt.HashPassword(UserSignup.Password);
+                var countUsers = usersService.GetAllUtilisateurs().Count(user => (user.Pseudo == UserSignup.Pseudo) || (user.Email == UserSignup.Email));
                 if (countUsers > 0)
                 {
-                    return Conflict(newUser);
+                    return Conflict();
                 }
                 else
                 {
-                    return Ok(newUser);
+                    var newUser = new Utilisateur(UserSignup.Pseudo, UserSignup.Nom, UserSignup.Prenom, UserSignup.Email);
+                    newUser.ID_Utilisateur_Local = new UtilisateurLocal(UserSignup.Password);
+                    GenerateAssetPlayer(newUser);
+                    usersService.AddUtilisateur(newUser);
+                    return Ok();
                 }
             }
             else
@@ -118,18 +129,14 @@ namespace L3Projet.WebAPI.Controllers
             }
         }
 
-        private Boolean GenerateNewUser(Utilisateur newUser)
-        {
-            var user = usersService.AddUtilisateur(newUser);
-            return user;
-        }
-
         [HttpGet("/test")]
         [Authorize]
         public ActionResult Test()
         {
-            var currentUser = HttpContext.User.Identity.Name;
-            return Ok(currentUser + " " + DateTime.Now);
+            var currentToken = HttpContext.User.Identity;
+            var claims = ((System.Security.Claims.ClaimsIdentity)currentToken).Claims;
+            var authTime = claims.FirstOrDefault(claim => claim.Type == "auth_time");
+            return Ok(currentToken.Name + " at " + authTime.Value);
         }
 
         private string GenerateJSONWebToken(Utilisateur user)
@@ -151,6 +158,27 @@ namespace L3Projet.WebAPI.Controllers
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private bool GenerateAssetPlayer(Utilisateur player)
+        {
+            var worldSelect = worldsService.GetAllMondes().FirstOrDefault();
+            if (worldSelect == null)
+            {
+                worldSelect = new Monde("Terre");
+                worldSelect.Liste_Mers = new List<Mer>(1);
+                worldSelect.Liste_Mers.Add(new Mer("Manche"));
+            }
+            if (player.ID_Monde == null)
+            {
+                player.ID_Monde = new List<Monde>(1);
+            }
+            player.ID_Monde.Add(worldSelect);
+
+            return true;
+            /*
+                player.ID_Liste_Villages = 
+            */
         }
     }
 }

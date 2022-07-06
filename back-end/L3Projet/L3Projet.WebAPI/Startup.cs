@@ -85,6 +85,8 @@ namespace L3Projet.WebAPI
 
             services.AddHealthChecks()
                 .AddCheck<DbHealthCheck>("Database");
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

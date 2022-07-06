@@ -3,6 +3,7 @@ using System;
 using L3Projet.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace L3Projet.DataAccess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20220706115813_developpement_models_v2.1.5")]
+    partial class developpement_models_v215
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,8 +200,9 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("NomMonde");
 
-                    b.Property<int>("Type_Monde")
-                        .HasColumnType("integer");
+                    b.Property<string>("Type_Monde")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<Guid?>("UtilisateurID_Utilisateur")
                         .HasColumnType("uuid");

@@ -8,15 +8,15 @@ namespace L3Projet.Common.Models
 {
     public class Signup
     {
-        public string email { get; set; }
+        public string Email { get; set; }
 
-        public string nom { get; set; }
+        public string Nom { get; set; }
 
-        public string password { get; set; }
+        public string Password { get; set; }
 
-        public string prenom { get; set; }
+        public string Prenom { get; set; }
 
-        public string pseudo { get; set; }
+        public string Pseudo { get; set; }
 
     }
 }

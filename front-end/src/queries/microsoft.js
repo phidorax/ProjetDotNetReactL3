@@ -1,9 +1,10 @@
 export default async function microsoft(graphData) {
     const credentials = {
-        first_name: graphData.givenName,
-        name: graphData.surname,
-        email: graphData.userPrincipalName,
-        id: graphData.id
+        displayName: graphData.displayName,
+        firstName: graphData.givenName,
+        lastName: graphData.surname,
+        Email: graphData.userPrincipalName,
+        ID: graphData.id
     }
     console.log(credentials)
     const res = await fetch(

@@ -6,5 +6,6 @@ namespace L3Projet.Business.Interfaces
     {
         IEnumerable<Utilisateur> GetAllUtilisateurs();
         Boolean AddUtilisateur(Utilisateur newUtilisateur);
+        Boolean UpdateUtilisateur(Utilisateur utilisateur);
     }
 }
