@@ -28,7 +28,6 @@ namespace L3Projet.WebAPI
             services.Configure<AppSettings>(appSettingsSection);
 
             // Add services to the container.
-            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IMersService, MersService>();
             services.AddTransient<IIlesService, IlesService>();
             services.AddTransient<IClassementsService, ClassementsService>();

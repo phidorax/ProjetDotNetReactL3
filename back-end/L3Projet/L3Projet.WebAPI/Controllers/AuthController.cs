@@ -14,27 +14,17 @@ namespace L3Projet.WebAPI.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUsersService usersService;
+        private readonly IUtilisateursService usersService;
+        private readonly IUtilisateursLocalService usersLocalService;
+        private readonly IUtilisateursMicrosoftService usersMSService;
         private IConfiguration _config;
-        private List<BasicLogin> usersBDD;
 
-        public AuthController(IUsersService usersService, IConfiguration config)
+        public AuthController(IUtilisateursService usersService, IUtilisateursLocalService usersLocalService, IUtilisateursMicrosoftService usersMSService, IConfiguration config)
         {
             this._config = config;
             this.usersService = usersService;
-            usersBDD = new();
-            BasicLogin user1 = new()
-            {
-                uname = "user1",
-                pass = BCrypt.Net.BCrypt.HashPassword("pass1")
-            };
-            usersBDD.Add(user1);
-            BasicLogin user2 = new()
-            {
-                uname = "user2",
-                pass = BCrypt.Net.BCrypt.HashPassword("pass2")
-            };
-            usersBDD.Add(user2);
+            this.usersLocalService = usersLocalService;
+            this.usersMSService = usersMSService;
         }
 
         [AllowAnonymous]
@@ -43,12 +33,14 @@ namespace L3Projet.WebAPI.Controllers
         {
             if (userLogin != null)
             {
-                BasicLogin? userBdd = usersBDD.FirstOrDefault(user => user.uname == userLogin.uname);
-                if (userBdd != null)
+                var ListUsers = usersService.GetAllUtilisateurs();
+                Utilisateur? UserBDD = ListUsers.FirstOrDefault(user => (user.Pseudo == userLogin.uname) || (user.Email == userLogin.uname), null);
+                if (UserBDD != null)
                 {
-                    if (BCrypt.Net.BCrypt.Verify(userLogin.pass, userBdd.pass))
+                    var UserLocalBdd = UserBDD.ID_Utilisateur_Local;
+                    if (BCrypt.Net.BCrypt.Verify(userLogin.pass, UserLocalBdd.Password))
                     {
-                        var tokenString = GenerateJSONWebToken(userLogin.uname);
+                        var tokenString = GenerateJSONWebToken(UserBDD);
                         return Ok(new { token = tokenString });
                     }
                     else
@@ -69,12 +61,33 @@ namespace L3Projet.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("/login/ms")]
-        public ActionResult MSLogin([FromBody] MSLogin? msUser)
+        public ActionResult MSLogin([FromBody] MSLogin? UserMSLogin)
         {
-            if (msUser != null)
+            if (UserMSLogin != null)
             {
-                var tokenString = GenerateJSONWebToken(msUser.first_name);
-                return Ok(new { token = tokenString });
+                var userMS = usersMSService.GetAllUtilisateursMicrosoft().FirstOrDefault(user => user.Token == UserMSLogin.id);
+                if (userMS != null)
+                {
+                    var UserLink = usersService.GetAllUtilisateurs().FirstOrDefault(user => user.ID_Utilisateur_Microsoft.ID_Microsoft == userMS.ID_Microsoft);
+                    var tokenString = GenerateJSONWebToken(UserLink);
+                    return Ok(new { token = tokenString });
+                }
+                else
+                {
+                    var NewUserMS = new Utilisateur();
+                    NewUserMS.Pseudo = UserMSLogin.name;
+                    NewUserMS.Email = UserMSLogin.email;
+                    NewUserMS.ID_Utilisateur_Microsoft = new UtilisateurMicrosoft(UserMSLogin.id);
+                    if (GenerateNewUser(NewUserMS))
+                    {
+                        var tokenString = GenerateJSONWebToken(NewUserMS);
+                        return Ok(new { token = tokenString });
+                    }
+                    else
+                    {
+                        return Forbid();
+                    }
+                }
             }
             else
             {
@@ -89,7 +102,7 @@ namespace L3Projet.WebAPI.Controllers
             if (newUser != null)
             {
                 newUser.password = BCrypt.Net.BCrypt.HashPassword(newUser.password);
-                var countUsers = usersBDD.Count(x => x.uname == newUser.pseudo);
+                var countUsers = usersService.GetAllUtilisateurs().Count(user => (user.Pseudo == newUser.pseudo) || (user.Email == newUser.email));
                 if (countUsers > 0)
                 {
                     return Conflict(newUser);
@@ -105,6 +118,12 @@ namespace L3Projet.WebAPI.Controllers
             }
         }
 
+        private Boolean GenerateNewUser(Utilisateur newUser)
+        {
+            var user = usersService.AddUtilisateur(newUser);
+            return user;
+        }
+
         [HttpGet("/test")]
         [Authorize]
         public ActionResult Test()
@@ -113,16 +132,16 @@ namespace L3Projet.WebAPI.Controllers
             return Ok(currentUser + " " + DateTime.Now);
         }
 
-        private string GenerateJSONWebToken(string pseudo)
+        private string GenerateJSONWebToken(Utilisateur user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Name, pseudo)/*,
-                new Claim(JwtRegisteredClaimNames.Email, userInfo.EmailAddress),
-                new Claim("DateOfJoing", userInfo.DateOfJoing.ToString("yyyy-MM-dd")),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())*/
+                new Claim(JwtRegisteredClaimNames.Name, user.Pseudo),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.AuthTime, DateTime.Now.ToString("g")),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
