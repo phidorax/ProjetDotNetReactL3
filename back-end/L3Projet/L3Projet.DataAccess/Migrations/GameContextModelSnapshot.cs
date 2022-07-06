@@ -17,7 +17,7 @@ namespace L3Projet.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -26,8 +26,7 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Batiment")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Niveau_Batiment")
                         .HasColumnType("integer");
@@ -40,7 +39,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.Property<Guid?>("VillageID_Village")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID_Batiment");
 
@@ -53,11 +52,10 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Batiment_Parametrage")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("BatimentID_Batiment")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nom_Batiment_Parametrage")
                         .IsRequired()
@@ -98,16 +96,16 @@ namespace L3Projet.DataAccess.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Cout_Ressource"));
 
                     b.Property<Guid?>("BatimentParametrageID_Batiment_Parametrage")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Cout_Ressource")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("ID_Ressource")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("VillageID_Village")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID_Cout_Ressource");
 
@@ -124,14 +122,13 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Ile")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
 
                     b.Property<Guid?>("MerID_Mer")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nom_Ile")
                         .IsRequired()
@@ -153,8 +150,7 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Mer")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
@@ -163,7 +159,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("real");
 
                     b.Property<Guid?>("MondeID_Monde")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nom_Mer")
                         .IsRequired()
@@ -185,8 +181,7 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Monde")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
@@ -208,7 +203,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<Guid?>("UtilisateurID_Utilisateur")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID_Monde");
 
@@ -223,14 +218,13 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Parametrage")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("Lancement_Evolution_Parametrage")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("MondeID_Monde")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nom_Parametrage")
                         .IsRequired()
@@ -253,8 +247,7 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Ressource")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nom_Ressource")
                         .IsRequired()
@@ -268,27 +261,11 @@ namespace L3Projet.DataAccess.Migrations
                     b.ToTable("Ressources");
                 });
 
-            modelBuilder.Entity("L3Projet.Common.Models.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("L3Projet.Common.Models.Utilisateur", b =>
                 {
                     b.Property<Guid>("ID_Utilisateur")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -347,11 +324,10 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     b.Property<Guid>("ID_Village")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial")
-                        .HasColumnOrder(1);
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("IleID_Ile")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Nom_Village")
                         .IsRequired()
@@ -361,7 +337,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.Property<Guid?>("UtilisateurID_Utilisateur")
-                        .HasColumnType("serial");
+                        .HasColumnType("uuid");
 
                     b.HasKey("ID_Village");
 

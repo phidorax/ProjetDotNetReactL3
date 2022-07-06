@@ -29,5 +29,10 @@ namespace L3Projet.DataAccess
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
                  => options.UseNpgsql(SqlConnectionString);
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

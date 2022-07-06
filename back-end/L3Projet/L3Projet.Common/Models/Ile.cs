@@ -7,7 +7,6 @@ namespace L3Projet.Common.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order=1, TypeName="serial")]
         public Guid ID_Ile { get; set; }
         public String Nom_Ile { get; set; }
         public int Score_Ile { get; set; }

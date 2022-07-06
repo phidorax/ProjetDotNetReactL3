@@ -7,7 +7,6 @@ namespace L3Projet.Common.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order=1, TypeName="serial")]
         public Guid ID_Mer { get; set; }
         public string Nom_Mer { get; set; }
         public float Limite_ile { get; set; }
