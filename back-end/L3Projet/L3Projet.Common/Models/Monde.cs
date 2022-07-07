@@ -17,6 +17,7 @@ namespace L3Projet.Common.Models
             Type_Monde = TypeMonde.PVP;
             Date_Creation_Monde = DateTime.Now;
             Fin_Monde = false;
+            Liste_Mers = new List<Mer>(1);
         }
 
         [Key]

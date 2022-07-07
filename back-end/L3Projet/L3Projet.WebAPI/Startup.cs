@@ -40,6 +40,7 @@ namespace L3Projet.WebAPI
             services.AddTransient<IUtilisateursService, UtilisateursService>();
             services.AddTransient<IUtilisateursMicrosoftService, UtilisateursMicrosoftService>();
             services.AddTransient<IUtilisateursLocalService, UtilisateursLocalService>();
+            services.AddTransient<IVillagesService, VillagesService>();
             services.AddScoped<GameContext>();
 
             services.AddControllers();

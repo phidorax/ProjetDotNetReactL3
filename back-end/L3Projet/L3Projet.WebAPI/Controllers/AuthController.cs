@@ -166,19 +166,28 @@ namespace L3Projet.WebAPI.Controllers
             if (worldSelect == null)
             {
                 worldSelect = new Monde("Terre");
-                worldSelect.Liste_Mers = new List<Mer>(1);
-                worldSelect.Liste_Mers.Add(new Mer("Manche"));
+                var newMer = new Mer("Manche");
+                newMer.Liste_Iles.Add(new Ile("Île d'Oléron"));
+                worldSelect.Liste_Mers.Add(newMer);
             }
             if (player.ID_Monde == null)
             {
                 player.ID_Monde = new List<Monde>(1);
             }
             player.ID_Monde.Add(worldSelect);
-
+            var village = new Village(player.Pseudo + " Village");
+            if (player.ID_Liste_Villages == null)
+            {
+                player.ID_Liste_Villages = new List<Village>(1);
+            }
+            player.ID_Liste_Villages.Add(village);
+            var listeVillageIles = worldSelect.Liste_Mers.First().Liste_Iles.First().ID_Village;
+            if (listeVillageIles == null)
+            {
+                listeVillageIles = new List<Village>(1);
+            }
+            listeVillageIles.Add(village);
             return true;
-            /*
-                player.ID_Liste_Villages = 
-            */
         }
     }
 }

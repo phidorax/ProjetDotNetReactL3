@@ -8,16 +8,17 @@ namespace L3Projet.Common.Models
         public Mer(string nom_Mer)
         {
             Nom_Mer = nom_Mer;
-            Limite_ile = 6;
+            Limite_Ile = 6;
+            Liste_Iles = new List<Ile>(1);
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID_Mer { get; set; }
         public string Nom_Mer { get; set; }
-        public float Limite_ile { get; set; }
+        public float Limite_Ile { get; set; }
         public int Score_Mer { get; set; }
-        public ICollection<Ile> ID_Ile { get; set; }
+        public ICollection<Ile> Liste_Iles { get; set; }
 
     }
 }

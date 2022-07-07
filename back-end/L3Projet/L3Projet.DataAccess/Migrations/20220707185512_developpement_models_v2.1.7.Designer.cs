@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace L3Projet.DataAccess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20220706115813_developpement_models_v2.1.5")]
-    partial class developpement_models_v215
+    [Migration("20220707185512_developpement_models_v2.1.7")]
+    partial class developpement_models_v217
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -157,7 +157,7 @@ namespace L3Projet.DataAccess.Migrations
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
 
-                    b.Property<float>("Limite_ile")
+                    b.Property<float>("Limite_Ile")
                         .HasColumnType("real");
 
                     b.Property<Guid?>("MondeID_Monde")
@@ -189,7 +189,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime>("Date_Creation_Monde")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("Fin_Monde")
                         .HasColumnType("boolean");
@@ -200,9 +200,8 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("NomMonde");
 
-                    b.Property<string>("Type_Monde")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Type_Monde")
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("UtilisateurID_Utilisateur")
                         .HasColumnType("uuid");
@@ -223,7 +222,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Lancement_Evolution_Parametrage")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid?>("MondeID_Monde")
                         .HasColumnType("uuid");
@@ -398,7 +397,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasForeignKey("Classement_global");
 
                     b.HasOne("L3Projet.Common.Models.Mer", null)
-                        .WithMany("ID_Ile")
+                        .WithMany("Liste_Iles")
                         .HasForeignKey("MerID_Mer");
                 });
 
@@ -483,7 +482,7 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Mer", b =>
                 {
-                    b.Navigation("ID_Ile");
+                    b.Navigation("Liste_Iles");
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Monde", b =>

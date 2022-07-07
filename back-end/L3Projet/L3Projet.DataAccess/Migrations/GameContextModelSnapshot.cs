@@ -45,7 +45,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("VillageID_Village");
 
-                    b.ToTable("Batiments");
+                    b.ToTable("Batiments", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.BatimentParametrage", b =>
@@ -68,7 +68,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("BatimentID_Batiment");
 
-                    b.ToTable("BatimentsParametrages");
+                    b.ToTable("BatimentsParametrages", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Classement", b =>
@@ -84,7 +84,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasKey("Classement_global");
 
-                    b.ToTable("Classement");
+                    b.ToTable("Classement", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.CoutRessources", b =>
@@ -115,7 +115,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("VillageID_Village");
 
-                    b.ToTable("CoutRessources");
+                    b.ToTable("CoutRessources", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Ile", b =>
@@ -143,7 +143,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("MerID_Mer");
 
-                    b.ToTable("Iles");
+                    b.ToTable("Iles", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Mer", b =>
@@ -155,7 +155,7 @@ namespace L3Projet.DataAccess.Migrations
                     b.Property<float?>("Classement_global")
                         .HasColumnType("real");
 
-                    b.Property<float>("Limite_ile")
+                    b.Property<float>("Limite_Ile")
                         .HasColumnType("real");
 
                     b.Property<Guid?>("MondeID_Monde")
@@ -174,7 +174,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("MondeID_Monde");
 
-                    b.ToTable("Mer");
+                    b.ToTable("Mer", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Monde", b =>
@@ -187,7 +187,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime>("Date_Creation_Monde")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("Fin_Monde")
                         .HasColumnType("boolean");
@@ -210,7 +210,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("UtilisateurID_Utilisateur");
 
-                    b.ToTable("Mondes");
+                    b.ToTable("Mondes", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Parametrage", b =>
@@ -220,7 +220,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Lancement_Evolution_Parametrage")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid?>("MondeID_Monde")
                         .HasColumnType("uuid");
@@ -239,7 +239,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("MondeID_Monde");
 
-                    b.ToTable("Table_Parametrages");
+                    b.ToTable("Table_Parametrages", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Ressources", b =>
@@ -257,7 +257,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasKey("ID_Ressource");
 
-                    b.ToTable("Ressources");
+                    b.ToTable("Ressources", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Utilisateur", b =>
@@ -294,7 +294,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("ID_Utilisateur_MicrosoftID_Microsoft");
 
-                    b.ToTable("Utilisateurs");
+                    b.ToTable("Utilisateurs", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.UtilisateurLocal", b =>
@@ -309,7 +309,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasKey("ID_Local");
 
-                    b.ToTable("UtilisateursLocal");
+                    b.ToTable("UtilisateursLocal", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.UtilisateurMicrosoft", b =>
@@ -324,7 +324,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasKey("ID_Microsoft");
 
-                    b.ToTable("UtilisateursMicrosoft");
+                    b.ToTable("UtilisateursMicrosoft", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Village", b =>
@@ -352,7 +352,7 @@ namespace L3Projet.DataAccess.Migrations
 
                     b.HasIndex("UtilisateurID_Utilisateur");
 
-                    b.ToTable("Villages");
+                    b.ToTable("Villages", (string)null);
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Batiment", b =>
@@ -395,7 +395,7 @@ namespace L3Projet.DataAccess.Migrations
                         .HasForeignKey("Classement_global");
 
                     b.HasOne("L3Projet.Common.Models.Mer", null)
-                        .WithMany("ID_Ile")
+                        .WithMany("Liste_Iles")
                         .HasForeignKey("MerID_Mer");
                 });
 
@@ -480,7 +480,7 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Mer", b =>
                 {
-                    b.Navigation("ID_Ile");
+                    b.Navigation("Liste_Iles");
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Monde", b =>

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace L3Projet.DataAccess.Migrations
 {
-    public partial class _20220707131458_developpement_models_v213 : Migration
+    public partial class developpement_models_v217 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,9 +66,11 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     ID_Utilisateur = table.Column<Guid>(type: "uuid", nullable: false),
                     Pseudo = table.Column<string>(type: "text", nullable: false),
+                    Nom = table.Column<string>(type: "text", nullable: false),
+                    Prénom = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    ID_Utilisateur_LocalID_Local = table.Column<Guid>(type: "uuid", nullable: false),
-                    ID_Utilisateur_MicrosoftID_Microsoft = table.Column<Guid>(type: "uuid", nullable: false)
+                    ID_Utilisateur_LocalID_Local = table.Column<Guid>(type: "uuid", nullable: true),
+                    ID_Utilisateur_MicrosoftID_Microsoft = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,14 +79,12 @@ namespace L3Projet.DataAccess.Migrations
                         name: "FK_Utilisateurs_UtilisateursLocal_ID_Utilisateur_LocalID_Local",
                         column: x => x.ID_Utilisateur_LocalID_Local,
                         principalTable: "UtilisateursLocal",
-                        principalColumn: "ID_Local",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID_Local");
                     table.ForeignKey(
                         name: "FK_Utilisateurs_UtilisateursMicrosoft_ID_Utilisateur_Microsoft~",
                         column: x => x.ID_Utilisateur_MicrosoftID_Microsoft,
                         principalTable: "UtilisateursMicrosoft",
-                        principalColumn: "ID_Microsoft",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID_Microsoft");
                 });
 
             migrationBuilder.CreateTable(
@@ -93,8 +93,8 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     ID_Monde = table.Column<Guid>(type: "uuid", nullable: false),
                     NomMonde = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Type_Monde = table.Column<string>(type: "text", nullable: false),
-                    Date_Creation_Monde = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Type_Monde = table.Column<int>(type: "integer", nullable: false),
+                    Date_Creation_Monde = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Fin_Monde = table.Column<bool>(type: "boolean", nullable: false),
                     Classement_global = table.Column<float>(type: "real", nullable: true),
                     UtilisateurID_Utilisateur = table.Column<Guid>(type: "uuid", nullable: true)
@@ -120,7 +120,7 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     ID_Mer = table.Column<Guid>(type: "uuid", nullable: false),
                     Nom_Mer = table.Column<string>(type: "text", nullable: false),
-                    Limite_ile = table.Column<float>(type: "real", nullable: false),
+                    Limite_Ile = table.Column<float>(type: "real", nullable: false),
                     Score_Mer = table.Column<int>(type: "integer", nullable: false),
                     Classement_global = table.Column<float>(type: "real", nullable: true),
                     MondeID_Monde = table.Column<Guid>(type: "uuid", nullable: true)
@@ -146,7 +146,7 @@ namespace L3Projet.DataAccess.Migrations
                 {
                     ID_Parametrage = table.Column<Guid>(type: "uuid", nullable: false),
                     Nom_Parametrage = table.Column<string>(type: "text", nullable: false),
-                    Lancement_Evolution_Parametrage = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Lancement_Evolution_Parametrage = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Temps_Evolution_Parametrage = table.Column<float>(type: "real", nullable: false),
                     Vitesse_Evolution_Parametrage = table.Column<int>(type: "integer", nullable: false),
                     MondeID_Monde = table.Column<Guid>(type: "uuid", nullable: true)
