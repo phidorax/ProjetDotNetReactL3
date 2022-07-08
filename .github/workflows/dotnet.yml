@@ -34,8 +34,6 @@ jobs:
       uses: actions/setup-node@v3.3.0
     - name: NPM Install
       run: cd front-end && npm ci
-    - name: NPM Test
-      run: cd front-end && npm test
     - name: NPM Build
       run: cd front-end && npm run build
 
