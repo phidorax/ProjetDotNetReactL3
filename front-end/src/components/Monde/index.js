@@ -10,9 +10,9 @@ export default function Monde() {
 			<div className="affichageList col-md-6">
 				<h1>Bienvenue Monde</h1>
 				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>Terre</li>
+					<li>Uranus</li>
+					<li>Thèbes</li>
 				</ul>
 			</div>
 

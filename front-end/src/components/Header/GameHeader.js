@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link, Route, Routes} from "react-router-dom";
 import Home from "../Home";
 import Login from "../Login";
@@ -12,7 +12,7 @@ import Ile from "../Ile";
 import Mer from "../Mer";
 import Village from "../Village";
 import Classement from "../Classement";
-function GameHeader(){
+function GameHeader({ressource}){
     return(
         <div class="gameHeader">
             <img src={logo} className="gameLogo" alt="img2"/>
@@ -22,15 +22,18 @@ function GameHeader(){
                 <Link className="margin" to="/ile">Ile</Link>
                 <Link className="margin" to="/village">Village</Link>
                 <Link className="margin" to="/classement">Classement</Link>
+                <p>Bois : {ressource.ressource1}</p>
+                <p>Pierre : {ressource.ressource2}</p>
+                <p>Métal : {ressource.ressource3}</p>
+                <p>Classement : {ressource.classement}</p>
             </div>
-
             <Routes>
                 <Route path="/game" element={<Game text={'Bienvenue sur le jeu'} />} />
                 <Route path="monde" element={<Monde />} />
                 <Route path="mer" element={<Mer />} />
-                <Route path="ile" element={<Ile />} />
-                <Route path="village" element={<Village />} />
-                <Route path="/classement" element={<Classement />} />
+                <Route path="ile" element={<Ile ressource={ressource}/>} />
+                <Route path="village" element={<Village ressource={ressource}/>} />
+                <Route path="/classement" element={<Classement ressource={ressource}/>} />
             </Routes>
         </div>
     );

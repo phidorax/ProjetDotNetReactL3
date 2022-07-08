@@ -10,9 +10,9 @@ export default function Mer() {
 			<div className="affichageList col-md-6">
 				<h1>Bienvenue Mer</h1>
 				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>Mer 1</li>
+					<li>Mer 2</li>
+					<li>Mer 3</li>
 				</ul>
 			</div>
 		</div>
