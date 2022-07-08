@@ -7,5 +7,7 @@ namespace L3Projet.Business.Interfaces
         IEnumerable<Village> GetAllVillages();
         bool RenameVillage(Guid ID_Village, String name, Utilisateur player);
         bool UpgradeBatiment(Guid ID_Village, Guid ID_Batiment);
+        Dictionary<TypeRessources, ulong>? GetRessources(Guid ID_Village, Utilisateur player);
+
     }
 }

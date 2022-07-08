@@ -20,8 +20,14 @@ namespace L3Projet.Common.Models
             Nom_Batiment = TypeBatiment.Mairie;
             Niveau_Batiment = 1;
             Score_Total_Batiment = 0;
+            Liste_Cout_Ressources = new List<CoutRessources>();
+            Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Bois), 2500));
+            Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Pierre), 2500));
+            Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Métal), 2500));
+            Liste_Stockage_Ressources = new List<StockageRessources>();
             GenerateStockage();
             ID_Batiment_Parametrage = new List<BatimentParametrage>();
+            Fin_Construction = DateTime.Now.AddMinutes(5);
         }
 
         public Batiment(TypeBatiment nom_Batiment)
@@ -33,13 +39,14 @@ namespace L3Projet.Common.Models
             Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Bois), 2500));
             Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Pierre), 2500));
             Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Métal), 2500));
+            Liste_Stockage_Ressources = new List<StockageRessources>();
             GenerateStockage();
             ID_Batiment_Parametrage = new List<BatimentParametrage>();
+            Fin_Construction = DateTime.Now.AddMinutes(5);
         }
 
         private void GenerateStockage()
         {
-            Liste_Stockage_Ressources = new List<StockageRessources>();
             switch (Nom_Batiment)
             {
                 case TypeBatiment.Mairie:
@@ -77,6 +84,7 @@ namespace L3Projet.Common.Models
         public TypeBatiment Nom_Batiment { get; set; }
         public int Niveau_Batiment { get; set; }
         public int Score_Total_Batiment { get; set; }
+        public DateTime Fin_Construction { get; set; }
         public ICollection<CoutRessources> Liste_Cout_Ressources { get; set; }
         public ICollection<StockageRessources> Liste_Stockage_Ressources { get; set; }
         public ICollection<BatimentParametrage> ID_Batiment_Parametrage { get; set; }

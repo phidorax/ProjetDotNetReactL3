@@ -17,13 +17,13 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: cd back-end && dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: cd back-end && dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: cd back-end && dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish -c Release -o API
+      run: cd back-end && dotnet publish -c Release -o API
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
@@ -33,9 +33,9 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.3.0
     - name: NPM Install
-      run: cd l3projet-front && npm ci
+      run: cd front-end && npm ci
     - name: NPM Test
-      run: cd l3projet-front && npm test
+      run: cd front-end && npm test
     - name: NPM Build
-      run: cd l3projet-front && npm run build
+      run: cd front-end && npm run build
 

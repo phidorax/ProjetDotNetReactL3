@@ -25,11 +25,17 @@ namespace L3Projet.WebAPI.Controllers
         {
             try
             {
-                var Villages = VillagesService.GetAllVillages();
+                var currentUserToken = HttpContext.User.Identity.Name;
+                var currentUser = UtilisateursService.GetAllUtilisateurs().FirstOrDefault(users => users.Pseudo == currentUserToken, null);
 
-                if (Villages.Any())
+                if (currentUser != null)
                 {
-                    return Ok(Villages);
+                    var villagesUser = currentUser.ID_Liste_Villages;
+                    if (villagesUser.Count > 0)
+                    {
+                        return Ok(villagesUser);
+                    }
+                    else { return NoContent(); }
                 }
 
                 return NoContent();
@@ -42,9 +48,19 @@ namespace L3Projet.WebAPI.Controllers
         }
 
         [HttpGet("{villageid}/ressources")]
-        public ActionResult GetRessources([FromRoute] Guid villageid)
+        public ActionResult<Dictionary<TypeRessources, ulong>> GetRessources([FromRoute] Guid villageid)
         {
-            return Ok();
+            var currentUserToken = HttpContext.User.Identity.Name;
+            var currentUser = UtilisateursService.GetAllUtilisateurs().FirstOrDefault(users => users.Pseudo == currentUserToken, null);
+            var ressources = VillagesService.GetRessources(villageid, currentUser);
+            if (ressources != null)
+            {
+                return Ok(ressources);
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
 

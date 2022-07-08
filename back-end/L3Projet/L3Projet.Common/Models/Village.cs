@@ -5,6 +5,7 @@ namespace L3Projet.Common.Models
 {
     public class Village
     {
+        public Village() { }
         public Village(string nom_Village)
         {
             Nom_Village = nom_Village;
@@ -12,6 +13,13 @@ namespace L3Projet.Common.Models
             Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Bois), 5000));
             Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Métal), 5000));
             Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Pierre), 5000));
+            Liste_Batiment = new List<Batiment>();
+            Liste_Batiment.Add(new Batiment(TypeBatiment.Mairie));
+            Liste_Batiment.Add(new Batiment(TypeBatiment.Scierie));
+            Liste_Batiment.Add(new Batiment(TypeBatiment.Mine_de_fer));
+            Liste_Batiment.Add(new Batiment(TypeBatiment.Carrière));
+            Liste_Batiment.Add(new Batiment(TypeBatiment.Entrepôt));
+            Liste_Batiment.Add(new Batiment(TypeBatiment.Ferme));
         }
 
         [Key]

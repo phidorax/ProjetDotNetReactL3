@@ -11,10 +11,25 @@ namespace L3Projet.WebAPI.Controllers
     public class ClassementController : ControllerBase
     {
         private readonly IClassementsService classementsService;
+        private readonly IUtilisateursService utilisateursService;
 
-        public ClassementController(IClassementsService classementsService)
+        public ClassementController(IClassementsService classementsService, IUtilisateursService utilisateursService)
         {
             this.classementsService = classementsService;
+            this.utilisateursService = utilisateursService;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("global")]
+        public ActionResult<Dictionary<string, int>> Global()
+        {
+            if (utilisateursService.CountUtilisateurs() > 0)
+            {
+                var dictionary = new Dictionary<string, int>();
+                utilisateursService.GetAllUtilisateurs().ToList().ForEach(user => user.ID_Liste_Villages.ToList().ForEach(v => dictionary[user.Pseudo] = v.Score_Village));
+                return Ok(dictionary);
+            }
+            else { return NoContent(); }
         }
 
         [HttpGet("all")]

@@ -16,21 +16,26 @@ namespace L3Projet.Business.Implementations
 
         public IEnumerable<Utilisateur> GetAllUtilisateurs()
         {
-            return _gameContext.Utilisateurs.Include(x => x.ID_Utilisateur_Local).OrderBy(x => x.ID_Utilisateur);
+            return _gameContext.Utilisateurs.Include(x => x.ID_Utilisateur_Local).Include(x => x.ID_Liste_Villages).ThenInclude(x => x.Liste_Batiment).ThenInclude(x => x.Liste_Stockage_Ressources).OrderBy(x => x.ID_Utilisateur);
         }
 
         public bool AddUtilisateur(Utilisateur newUtilisateur)
         {
             var entity = _gameContext.Utilisateurs.Add(newUtilisateur);
             var nbEntitySaved = _gameContext.SaveChanges();
-            return entity.State == Microsoft.EntityFrameworkCore.EntityState.Added;
+            return entity.State == EntityState.Added;
         }
 
         public bool UpdateUtilisateur(Utilisateur utilisateur)
         {
             var entity = _gameContext.Utilisateurs.Update(utilisateur);
             var nbEntitySaved = _gameContext.SaveChanges();
-            return entity.State == Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return entity.State == EntityState.Modified;
+        }
+
+        public int CountUtilisateurs()
+        {
+            return _gameContext.Utilisateurs.Count();
         }
     }
 }

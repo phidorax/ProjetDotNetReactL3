@@ -176,13 +176,6 @@ namespace L3Projet.WebAPI.Controllers
             }
             player.ID_Monde.Add(worldSelect);
             var village = new Village(player.Pseudo + " Village");
-            village.Liste_Batiment = new List<Batiment>();
-            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Mairie));
-            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Scierie));
-            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Mine_de_fer));
-            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Carrière));
-            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Entrepôt));
-            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Ferme));
             if (player.ID_Liste_Villages == null)
             {
                 player.ID_Liste_Villages = new List<Village>(1);
