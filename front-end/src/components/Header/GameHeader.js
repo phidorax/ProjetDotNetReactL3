@@ -22,10 +22,11 @@ function GameHeader({ressource}){
                 <Link className="margin" to="/ile">Ile</Link>
                 <Link className="margin" to="/village">Village</Link>
                 <Link className="margin" to="/classement">Classement</Link>
+                <p> Terre </p>
                 <p>Bois : {ressource.ressource1}</p>
                 <p>Pierre : {ressource.ressource2}</p>
                 <p>Métal : {ressource.ressource3}</p>
-                <p>Classement : {ressource.classement}</p>
+                <p>Classement : {ressource.classements.classement}</p>
             </div>
             <Routes>
                 <Route path="/game" element={<Game text={'Bienvenue sur le jeu'} />} />

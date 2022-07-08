@@ -10,9 +10,8 @@ export default function Classement({ressource}) {
 			<div className="affichageList col-md-6">
 				<h1>2 eme partie</h1>
 				<ul>
-					<li>{ressource.classements.classement}</li>
-					<li>{ressource.classements.classement1}</li>
-					<li></li>
+					{ressource.classements.classement >= ressource.classements.classement1 ? <li> Joueur 1 : {ressource.classements.classement}</li> : <li> Joueur 2 :{ressource.classements.classement1}</li>}
+					{ressource.classements.classement < ressource.classements.classement1 ? <li> Joueur 1 : {ressource.classements.classement}</li> : <li> Joueur 2 :{ressource.classements.classement1}</li>}
 				</ul>
 			</div>
 		</div>
