@@ -8,25 +8,25 @@ namespace L3Projet.WebAPI.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class IleController : ControllerBase
+    public class StockageRessourcesController : ControllerBase
     {
-        private readonly IIlesService IlesService;
+        private readonly IStockageRessourcesService stockageRessoucesService;
 
-        public IleController(IIlesService IlesService)
+        public StockageRessourcesController(IStockageRessourcesService stockageRessoucesService)
         {
-            this.IlesService = IlesService;
+            this.stockageRessoucesService = stockageRessoucesService;
         }
 
         [HttpGet("all")]
-        public ActionResult<IEnumerable<Ile>> GetAll()
+        public ActionResult<IEnumerable<StockageRessources>> GetAll()
         {
             try
             {
-                var iles = IlesService.GetAllIles();
+                var ressources = stockageRessoucesService.GetAllStockageRessources();
 
-                if (iles.Any())
+                if (ressources.Any())
                 {
-                    return Ok(iles);
+                    return Ok(ressources);
                 }
 
                 return NoContent();

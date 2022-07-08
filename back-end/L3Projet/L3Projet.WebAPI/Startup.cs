@@ -28,7 +28,6 @@ namespace L3Projet.WebAPI
             services.Configure<AppSettings>(appSettingsSection);
 
             // Add services to the container.
-            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IMersService, MersService>();
             services.AddTransient<IIlesService, IlesService>();
             services.AddTransient<IClassementsService, ClassementsService>();
@@ -38,9 +37,11 @@ namespace L3Projet.WebAPI
             services.AddTransient<IMondesService, MondesService>();
             services.AddTransient<IParametragesService, ParametragesService>();
             services.AddTransient<IRessoucesService, RessourcesService>();
+            services.AddTransient<IStockageRessourcesService, StockageRessourcesService>();
             services.AddTransient<IUtilisateursService, UtilisateursService>();
             services.AddTransient<IUtilisateursMicrosoftService, UtilisateursMicrosoftService>();
             services.AddTransient<IUtilisateursLocalService, UtilisateursLocalService>();
+            services.AddTransient<IVillagesService, VillagesService>();
             services.AddScoped<GameContext>();
 
             services.AddControllers();
@@ -86,6 +87,8 @@ namespace L3Projet.WebAPI
 
             services.AddHealthChecks()
                 .AddCheck<DbHealthCheck>("Database");
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

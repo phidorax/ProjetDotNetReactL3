@@ -19,13 +19,11 @@ export function CheckMSAuth() {
         // Silently acquires an access token which is then attached to a request for Microsoft Graph data
         instance.acquireTokenSilent(request).then((response) => {
             callMsGraph(response.accessToken).then(response => {
-                console.log(response)
                 microsoft(response)
             });
         }).catch((e) => {
             instance.acquireTokenPopup(request).then((response) => {
                 callMsGraph(response.accessToken).then(response => {
-                    console.log(response)
                     microsoft(response)
                 });
             });
@@ -33,7 +31,6 @@ export function CheckMSAuth() {
     }
     
     useEffect(() => {
-        console.log('useEffect', isAuthenticated)
         if (isAuthenticated) {
             RequestProfileData();
         } else {
