@@ -18,7 +18,9 @@ namespace L3Projet.Business.Implementations
             var newVillage = new Village(Utilisateur.Pseudo + " Nouveau village");
             Ile.ID_Village.Add(newVillage);
             Utilisateur.ID_Liste_Villages.Add(newVillage);
-            return true;
+            _gameContext.Update(Ile);
+            _gameContext.Update(Utilisateur);
+            return _gameContext.SaveChanges() >= 2;
         }
 
         public IEnumerable<Ile> GetAllIles()
