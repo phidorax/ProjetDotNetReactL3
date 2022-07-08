@@ -2,16 +2,20 @@
 using L3Projet.Common.Models;
 using L3Projet.DataAccess;
 
-namespace L3Projet.Business.Implementations {
-	public class BatimentsService : IBatimentsService {
-		private readonly GameContext _gameContext;
+namespace L3Projet.Business.Implementations
+{
+    public class BatimentsService : IBatimentsService
+    {
+        private readonly GameContext _gameContext;
 
-		public BatimentsService(GameContext context) {
-			this._gameContext = context;
-		}
+        public BatimentsService(GameContext context)
+        {
+            this._gameContext = context;
+        }
 
-		public IEnumerable<Batiment> getAllBatiments() {
-			return _gameContext.Batiments.OrderBy(x => x.ID_Batiment);
-		}
-	}
+        public IEnumerable<Batiment> getAllBatiments()
+        {
+            return _gameContext.Batiments.OrderBy(x => x.ID_Batiment);
+        }
+    }
 }

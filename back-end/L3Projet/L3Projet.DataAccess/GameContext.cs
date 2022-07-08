@@ -15,8 +15,8 @@ namespace L3Projet.DataAccess
         public DbSet<Monde> Mondes { get; set; }
         public DbSet<Parametrage> Table_Parametrages { get; set; }
         public DbSet<Ressources> Ressources { get; set; }
+        public DbSet<StockageRessources> StockageRessources { get; set; }
         public DbSet<CoutRessources> CoutRessources { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<UtilisateurLocal> UtilisateursLocal { get; set; }
         public DbSet<UtilisateurMicrosoft> UtilisateursMicrosoft { get; set; }
@@ -30,5 +30,10 @@ namespace L3Projet.DataAccess
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
                  => options.UseNpgsql(SqlConnectionString);
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

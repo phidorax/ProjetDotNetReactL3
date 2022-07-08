@@ -2,16 +2,30 @@
 using L3Projet.Common.Models;
 using L3Projet.DataAccess;
 
-namespace L3Projet.Business.Implementations {
-	public class IlesService : IIlesService {
-		private readonly GameContext _gameContext;
+namespace L3Projet.Business.Implementations
+{
+    public class IlesService : IIlesService
+    {
+        private readonly GameContext _gameContext;
 
-		public IlesService(GameContext context) {
-			this._gameContext = context;
-		}
+        public IlesService(GameContext context)
+        {
+            this._gameContext = context;
+        }
 
-		public IEnumerable<Ile> GetAllIles() {
-			return _gameContext.Iles.OrderBy(x => x.ID_Ile);
-		}
-	}
+        public bool AddVillage(Ile Ile, Utilisateur Utilisateur)
+        {
+            var newVillage = new Village(Utilisateur.Pseudo + " Nouveau village");
+            Ile.ID_Village.Add(newVillage);
+            Utilisateur.ID_Liste_Villages.Add(newVillage);
+            _gameContext.Update(Ile);
+            _gameContext.Update(Utilisateur);
+            return _gameContext.SaveChanges() >= 2;
+        }
+
+        public IEnumerable<Ile> GetAllIles()
+        {
+            return _gameContext.Iles.OrderBy(x => x.ID_Ile);
+        }
+    }
 }
