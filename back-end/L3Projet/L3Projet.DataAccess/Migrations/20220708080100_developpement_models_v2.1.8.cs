@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace L3Projet.DataAccess.Migrations
 {
-    public partial class developpement_models_v217 : Migration
+    public partial class developpement_models_v218 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace L3Projet.DataAccess.Migrations
                 columns: table => new
                 {
                     ID_Ressource = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nom_Ressource = table.Column<string>(type: "text", nullable: false),
+                    Nom_Ressource = table.Column<int>(type: "integer", nullable: false),
                     Production_Naturelle_Ressource = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -58,6 +58,26 @@ namespace L3Projet.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UtilisateursMicrosoft", x => x.ID_Microsoft);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockageRessources",
+                columns: table => new
+                {
+                    ID_Stockage_Ressource = table.Column<Guid>(type: "uuid", nullable: false),
+                    RessourceID_Ressource = table.Column<Guid>(type: "uuid", nullable: false),
+                    Resource_Stock = table.Column<int>(type: "integer", nullable: false),
+                    LastUpdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockageRessources", x => x.ID_Stockage_Ressource);
+                    table.ForeignKey(
+                        name: "FK_StockageRessources_Ressources_RessourceID_Ressource",
+                        column: x => x.RessourceID_Ressource,
+                        principalTable: "Ressources",
+                        principalColumn: "ID_Ressource",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,7 +236,7 @@ namespace L3Projet.DataAccess.Migrations
                 columns: table => new
                 {
                     ID_Batiment = table.Column<Guid>(type: "uuid", nullable: false),
-                    Nom_Batiment = table.Column<string>(type: "text", nullable: false),
+                    Nom_Batiment = table.Column<int>(type: "integer", nullable: false),
                     Niveau_Batiment = table.Column<int>(type: "integer", nullable: false),
                     Score_Total_Batiment = table.Column<int>(type: "integer", nullable: false),
                     VillageID_Village = table.Column<Guid>(type: "uuid", nullable: true)
@@ -258,12 +278,18 @@ namespace L3Projet.DataAccess.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Cout_Ressource = table.Column<int>(type: "integer", nullable: false),
                     ID_Ressource = table.Column<Guid>(type: "uuid", nullable: false),
+                    BatimentID_Batiment = table.Column<Guid>(type: "uuid", nullable: true),
                     BatimentParametrageID_Batiment_Parametrage = table.Column<Guid>(type: "uuid", nullable: true),
                     VillageID_Village = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CoutRessources", x => x.ID_Cout_Ressource);
+                    table.ForeignKey(
+                        name: "FK_CoutRessources_Batiments_BatimentID_Batiment",
+                        column: x => x.BatimentID_Batiment,
+                        principalTable: "Batiments",
+                        principalColumn: "ID_Batiment");
                     table.ForeignKey(
                         name: "FK_CoutRessources_BatimentsParametrages_BatimentParametrageID_~",
                         column: x => x.BatimentParametrageID_Batiment_Parametrage,
@@ -290,6 +316,11 @@ namespace L3Projet.DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_BatimentsParametrages_BatimentID_Batiment",
                 table: "BatimentsParametrages",
+                column: "BatimentID_Batiment");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CoutRessources_BatimentID_Batiment",
+                table: "CoutRessources",
                 column: "BatimentID_Batiment");
 
             migrationBuilder.CreateIndex(
@@ -338,6 +369,11 @@ namespace L3Projet.DataAccess.Migrations
                 column: "UtilisateurID_Utilisateur");
 
             migrationBuilder.CreateIndex(
+                name: "IX_StockageRessources_RessourceID_Ressource",
+                table: "StockageRessources",
+                column: "RessourceID_Ressource");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Table_Parametrages_MondeID_Monde",
                 table: "Table_Parametrages",
                 column: "MondeID_Monde");
@@ -367,6 +403,9 @@ namespace L3Projet.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CoutRessources");
+
+            migrationBuilder.DropTable(
+                name: "StockageRessources");
 
             migrationBuilder.DropTable(
                 name: "Table_Parametrages");

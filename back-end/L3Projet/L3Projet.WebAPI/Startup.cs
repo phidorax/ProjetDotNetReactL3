@@ -37,6 +37,7 @@ namespace L3Projet.WebAPI
             services.AddTransient<IMondesService, MondesService>();
             services.AddTransient<IParametragesService, ParametragesService>();
             services.AddTransient<IRessoucesService, RessourcesService>();
+            services.AddTransient<IStockageRessourcesService, StockageRessourcesService>();
             services.AddTransient<IUtilisateursService, UtilisateursService>();
             services.AddTransient<IUtilisateursMicrosoftService, UtilisateursMicrosoftService>();
             services.AddTransient<IUtilisateursLocalService, UtilisateursLocalService>();

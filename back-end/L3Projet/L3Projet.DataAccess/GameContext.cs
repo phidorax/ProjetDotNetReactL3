@@ -15,6 +15,7 @@ namespace L3Projet.DataAccess
         public DbSet<Monde> Mondes { get; set; }
         public DbSet<Parametrage> Table_Parametrages { get; set; }
         public DbSet<Ressources> Ressources { get; set; }
+        public DbSet<StockageRessources> StockageRessources { get; set; }
         public DbSet<CoutRessources> CoutRessources { get; set; }
         public DbSet<Utilisateur> Utilisateurs { get; set; }
         public DbSet<UtilisateurLocal> UtilisateursLocal { get; set; }

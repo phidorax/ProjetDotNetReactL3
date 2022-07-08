@@ -8,6 +8,10 @@ namespace L3Projet.Common.Models
         public Village(string nom_Village)
         {
             Nom_Village = nom_Village;
+            Liste_Cout_Ressources = new List<CoutRessources>();
+            Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Bois), 5000));
+            Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Métal), 5000));
+            Liste_Cout_Ressources.Add(new CoutRessources(new Ressources(TypeRessources.Pierre), 5000));
         }
 
         [Key]

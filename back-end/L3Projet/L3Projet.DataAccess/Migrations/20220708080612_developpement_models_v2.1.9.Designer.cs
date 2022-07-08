@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace L3Projet.DataAccess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20220707185512_developpement_models_v2.1.7")]
-    partial class developpement_models_v217
+    [Migration("20220708080612_developpement_models_v2.1.9")]
+    partial class developpement_models_v219
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,9 +33,8 @@ namespace L3Projet.DataAccess.Migrations
                     b.Property<int>("Niveau_Batiment")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Nom_Batiment")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Nom_Batiment")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Score_Total_Batiment")
                         .HasColumnType("integer");
@@ -97,6 +96,9 @@ namespace L3Projet.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID_Cout_Ressource"));
 
+                    b.Property<Guid?>("BatimentID_Batiment")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid?>("BatimentParametrageID_Batiment_Parametrage")
                         .HasColumnType("uuid");
 
@@ -110,6 +112,8 @@ namespace L3Projet.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("ID_Cout_Ressource");
+
+                    b.HasIndex("BatimentID_Batiment");
 
                     b.HasIndex("BatimentParametrageID_Batiment_Parametrage");
 
@@ -250,9 +254,8 @@ namespace L3Projet.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Nom_Ressource")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Nom_Ressource")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Production_Naturelle_Ressource")
                         .HasColumnType("integer");
@@ -260,6 +263,33 @@ namespace L3Projet.DataAccess.Migrations
                     b.HasKey("ID_Ressource");
 
                     b.ToTable("Ressources");
+                });
+
+            modelBuilder.Entity("L3Projet.Common.Models.StockageRessources", b =>
+                {
+                    b.Property<Guid>("ID_Stockage_Ressource")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BatimentID_Batiment")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<decimal>("Resource_Stock")
+                        .HasColumnType("numeric(20,0)");
+
+                    b.Property<Guid>("RessourceID_Ressource")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ID_Stockage_Ressource");
+
+                    b.HasIndex("BatimentID_Batiment");
+
+                    b.HasIndex("RessourceID_Ressource");
+
+                    b.ToTable("StockageRessources");
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.Utilisateur", b =>
@@ -360,7 +390,7 @@ namespace L3Projet.DataAccess.Migrations
             modelBuilder.Entity("L3Projet.Common.Models.Batiment", b =>
                 {
                     b.HasOne("L3Projet.Common.Models.Village", null)
-                        .WithMany("ID_Batiment")
+                        .WithMany("Liste_Batiment")
                         .HasForeignKey("VillageID_Village");
                 });
 
@@ -373,6 +403,10 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.CoutRessources", b =>
                 {
+                    b.HasOne("L3Projet.Common.Models.Batiment", null)
+                        .WithMany("Liste_Cout_Ressources")
+                        .HasForeignKey("BatimentID_Batiment");
+
                     b.HasOne("L3Projet.Common.Models.BatimentParametrage", null)
                         .WithMany("List_Cout_Ressources")
                         .HasForeignKey("BatimentParametrageID_Batiment_Parametrage");
@@ -384,7 +418,7 @@ namespace L3Projet.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("L3Projet.Common.Models.Village", null)
-                        .WithMany("List_Cout_Ressources")
+                        .WithMany("Liste_Cout_Ressources")
                         .HasForeignKey("VillageID_Village");
 
                     b.Navigation("id_ressource");
@@ -430,6 +464,21 @@ namespace L3Projet.DataAccess.Migrations
                         .HasForeignKey("MondeID_Monde");
                 });
 
+            modelBuilder.Entity("L3Projet.Common.Models.StockageRessources", b =>
+                {
+                    b.HasOne("L3Projet.Common.Models.Batiment", null)
+                        .WithMany("Liste_Stockage_Ressources")
+                        .HasForeignKey("BatimentID_Batiment");
+
+                    b.HasOne("L3Projet.Common.Models.Ressources", "Ressource")
+                        .WithMany()
+                        .HasForeignKey("RessourceID_Ressource")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ressource");
+                });
+
             modelBuilder.Entity("L3Projet.Common.Models.Utilisateur", b =>
                 {
                     b.HasOne("L3Projet.Common.Models.UtilisateurLocal", "ID_Utilisateur_Local")
@@ -459,6 +508,10 @@ namespace L3Projet.DataAccess.Migrations
             modelBuilder.Entity("L3Projet.Common.Models.Batiment", b =>
                 {
                     b.Navigation("ID_Batiment_Parametrage");
+
+                    b.Navigation("Liste_Cout_Ressources");
+
+                    b.Navigation("Liste_Stockage_Ressources");
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.BatimentParametrage", b =>
@@ -501,9 +554,9 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.Village", b =>
                 {
-                    b.Navigation("ID_Batiment");
+                    b.Navigation("Liste_Batiment");
 
-                    b.Navigation("List_Cout_Ressources");
+                    b.Navigation("Liste_Cout_Ressources");
                 });
 #pragma warning restore 612, 618
         }

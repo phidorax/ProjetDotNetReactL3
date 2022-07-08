@@ -1,11 +1,11 @@
-﻿using L3Projet.Business.Implementations;
-using L3Projet.Business.Interfaces;
+﻿using L3Projet.Business.Interfaces;
 using L3Projet.Common.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace L3Projet.WebAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ClassementController : ControllerBase

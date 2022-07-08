@@ -6,5 +6,6 @@ namespace L3Projet.Business.Interfaces
     {
         IEnumerable<Village> GetAllVillages();
         bool RenameVillage(Guid ID_Village, String name, Utilisateur player);
+        bool UpgradeBatiment(Guid ID_Village, Guid ID_Batiment);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using L3Projet.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace L3Projet.DataAccess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20220708080100_developpement_models_v2.1.8")]
+    partial class developpement_models_v218
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,24 +271,16 @@ namespace L3Projet.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BatimentID_Batiment")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("LastUpdate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<decimal>("Max_Stock")
-                        .HasColumnType("numeric(20,0)");
-
-                    b.Property<decimal>("Resource_Stock")
-                        .HasColumnType("numeric(20,0)");
+                    b.Property<int>("Resource_Stock")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("RessourceID_Ressource")
                         .HasColumnType("uuid");
 
                     b.HasKey("ID_Stockage_Ressource");
-
-                    b.HasIndex("BatimentID_Batiment");
 
                     b.HasIndex("RessourceID_Ressource");
 
@@ -467,10 +461,6 @@ namespace L3Projet.DataAccess.Migrations
 
             modelBuilder.Entity("L3Projet.Common.Models.StockageRessources", b =>
                 {
-                    b.HasOne("L3Projet.Common.Models.Batiment", null)
-                        .WithMany("Liste_Stockage_Ressources")
-                        .HasForeignKey("BatimentID_Batiment");
-
                     b.HasOne("L3Projet.Common.Models.Ressources", "Ressource")
                         .WithMany()
                         .HasForeignKey("RessourceID_Ressource")
@@ -511,8 +501,6 @@ namespace L3Projet.DataAccess.Migrations
                     b.Navigation("ID_Batiment_Parametrage");
 
                     b.Navigation("Liste_Cout_Ressources");
-
-                    b.Navigation("Liste_Stockage_Ressources");
                 });
 
             modelBuilder.Entity("L3Projet.Common.Models.BatimentParametrage", b =>

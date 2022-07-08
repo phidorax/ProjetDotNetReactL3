@@ -41,6 +41,13 @@ namespace L3Projet.WebAPI.Controllers
 
         }
 
+        [HttpGet("{villageid}/ressources")]
+        public ActionResult GetRessources([FromRoute] Guid villageid)
+        {
+            return Ok();
+        }
+
+
         [HttpPatch("{villageid}/rename")]
         public ActionResult Rename([FromBody] string? newName, [FromRoute] Guid villageid)
         {

@@ -9,6 +9,7 @@ namespace L3Projet.Common.Models
         {
             Nom_Mer = nom_Mer;
             Limite_Ile = 6;
+            Score_Mer = 0;
             Liste_Iles = new List<Ile>(1);
         }
 

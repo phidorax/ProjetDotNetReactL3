@@ -176,18 +176,34 @@ namespace L3Projet.WebAPI.Controllers
             }
             player.ID_Monde.Add(worldSelect);
             var village = new Village(player.Pseudo + " Village");
+            village.Liste_Batiment = new List<Batiment>();
+            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Mairie));
+            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Scierie));
+            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Mine_de_fer));
+            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Carrière));
+            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Entrepôt));
+            village.Liste_Batiment.Add(new Batiment(TypeBatiment.Ferme));
             if (player.ID_Liste_Villages == null)
             {
                 player.ID_Liste_Villages = new List<Village>(1);
             }
             player.ID_Liste_Villages.Add(village);
-            var listeVillageIles = worldSelect.Liste_Mers.First().Liste_Iles.First().ID_Village;
-            if (listeVillageIles == null)
+            var world = worldSelect.Liste_Mers.FirstOrDefault();
+            if (world != null)
             {
-                listeVillageIles = new List<Village>(1);
+                var ile = world.Liste_Iles.FirstOrDefault();
+                if (ile != null)
+                {
+                    var listeVillageIles = ile.ID_Village;
+                    if (listeVillageIles == null)
+                    {
+                        listeVillageIles = new List<Village>(1);
+                    }
+                    listeVillageIles.Add(village);
+                    return true;
+                }
             }
-            listeVillageIles.Add(village);
-            return true;
+            return false;
         }
     }
 }
